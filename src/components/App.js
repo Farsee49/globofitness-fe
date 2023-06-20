@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Activities from "./Activities";
 import Login from "./Login";
 import Register from "./Register";
@@ -8,6 +8,8 @@ import Routines from "./Routines";
 import Nav from "./Navbar";
 import RoutineActivities from "./RoutineActivities";
 import UserProfile from "./UserProfile";
+import EditRoutine from "./EditRoutine";
+
 import {
 	routinesByUsername,
 	routinesWithActivity, 
@@ -15,7 +17,6 @@ import {
 	fetchRoutines,
 	getUser
 	 } from "../data-requests";
-
 
 
 
@@ -29,7 +30,11 @@ const [activities, setActivities] = useState([]);
 const [routines, setRoutines] = useState([]);
 const [userRoutines, setUserRoutines] = useState([]);
 const [routineActivities, setRoutineActivities] = useState([]);
-
+const [editRoutineName, setEditRoutineName] = useState([]);
+const [editRoutineGoal, setEditRoutineGoal] = useState([]);
+const [newRoutineName, setNewRoutineName] = useState([]);
+const [newRoutineGoal, setNewRoutineGoal] = useState([]);
+const { postId } = useParams();
 const navigate = useNavigate();
    
 
@@ -41,9 +46,28 @@ const tokenCheck = () => {
    console.log(token)
 };
 
-useEffect(()=>{
-    tokenCheck();
-},[token]);
+const getRoutines = async (routines) => {
+      
+	try{
+	  const result =await fetchRoutines(token);
+		  //console.log(result)
+	  setRoutines(result)
+	 }catch(err){
+	   console.error('problem getting routines inside Routines!', err);
+	 }   
+   };
+
+   const getRoutinesByUsername = async (token) => {     
+    try{
+        //console.log(user)
+        const username = user.username
+        const result = await routinesByUsername(username)
+        setUserRoutines(result);
+        //console.log(result);
+    }catch(err){
+        console.error('problem in getRoutinesByUsername in UserProfile!', err);
+    } 
+ };   
 
 
 // const getRoutinesByUsername = async (token) => {
@@ -62,13 +86,16 @@ const getCurrentUser = async (token) => {
 	console.log(user)
 };
 
+useEffect(()=>{
+    tokenCheck();
+},[token]);
 
 useEffect(()=>{
+	getRoutines
 	getCurrentUser();
-	//getRoutinesByUsername();
+	getRoutinesByUsername();
    
        // navigate('/myprofile')
-   
 },[token]);
 
 
@@ -119,6 +146,14 @@ useEffect(()=>{
 
 				<Route path= '/routines'
 				 element={<Routines
+					newRoutineGoal={newRoutineGoal}
+					setNewRoutineGoal={setNewRoutineGoal}
+					newRoutineName={newRoutineName}
+					setNewRoutineName={setNewRoutineName}
+					editRoutineName={editRoutineName}
+					setEditRoutineName={setEditRoutineName}
+					editRoutineGoal={editRoutineGoal}
+					setEditRoutineGoal={setEditRoutineGoal}
 				    setRoutines={setRoutines}
 					routines={routines}
 					activities={activities}
@@ -143,6 +178,17 @@ useEffect(()=>{
 				 	user={user}
 					token={token}/>
 				 }/>
+
+				 <Route path= '/edit-routine/:routineId'
+				  element={<EditRoutine
+					routines={routines}
+					editRoutineName={editRoutineName}
+					setEditRoutineName={setEditRoutineName}
+					editRoutineGoal={editRoutineGoal}
+					setEditRoutineGoal={setEditRoutineGoal}
+					userRoutines={userRoutines}
+					postId={postId}
+				  />}/>
 
 			</Routes>
 		</>

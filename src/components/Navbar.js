@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import  { Button } from '@mui/material';
 
+import  { Button } from '@mui/material';
+import { Link } from "react-router-dom";
 
 const Nav = (props) => {
   const {
@@ -35,6 +35,9 @@ const Nav = (props) => {
                Routine Activities</Button></Link>
              <Link to='/userprofile'><Button variant="contained" size="small">
                User Profile</Button></Link>
+            <Link to={`/edit-routine/`} >
+              <Button  type='submit' variant='contained'size='small' >Edit Post
+              </Button></Link>
         </>):(<>
             <Link to='/login'><Button variant="contained" size="small">
                 Login</Button></Link>

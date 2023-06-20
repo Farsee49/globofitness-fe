@@ -76,7 +76,7 @@ export const registerUser = async (user) => {
         },
       });
       const result = await response.json();
-      console.log(result);
+      //console.log(result);
       return result
     } catch (err) {
       console.error('ERROR Getting Routines by Username!!!!', err);
@@ -177,6 +177,28 @@ export const fetchActivities = async () => {
             name: newRoutineName,
             goal: newRoutineGoal,
             isPublic: true
+          })
+        });
+        const result = await response.json();
+        console.log(result);
+        return result
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    export const getUpdateRoutine = async (routineId) => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+          method: "PATCH",
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+          },
+          body: JSON.stringify({
+            name: 'Long Cardio Day',
+            goal: 'To get your heart pumping!'
           })
         });
         const result = await response.json();
