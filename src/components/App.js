@@ -34,7 +34,7 @@ const [editRoutineName, setEditRoutineName] = useState([]);
 const [editRoutineGoal, setEditRoutineGoal] = useState([]);
 const [newRoutineName, setNewRoutineName] = useState([]);
 const [newRoutineGoal, setNewRoutineGoal] = useState([]);
-const { postId } = useParams();
+const { routineId } = useParams();
 const navigate = useNavigate();
    
 
@@ -187,7 +187,7 @@ useEffect(()=>{
 					editRoutineGoal={editRoutineGoal}
 					setEditRoutineGoal={setEditRoutineGoal}
 					userRoutines={userRoutines}
-					postId={postId}
+					routineId={routineId}
 				  />}/>
 
 			</Routes>
