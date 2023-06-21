@@ -7,6 +7,9 @@ import { Link, useParams } from "react-router-dom";
 
 
 const UserProfile = (props) => {
+  const { id} = useParams();
+
+  console.log(id)
     const {
     user,
     token,
@@ -48,7 +51,7 @@ const UserProfile = (props) => {
             <p>CreatorId: {userRoutine.creatorId}</p>
             <ul>Attached Activities: {userRoutine.activities.map((activity) =>(
              <li key={activity.id}>{activity.name}</li>
-            ))}</ul><Link to={`/edit-routine/:${userRoutine.id}`} >
+            ))}</ul><Link to={`/edit-routine/${userRoutine.id}`} >
               <Button  type='submit' variant='contained'size='small' >Edit Routine
               </Button></Link>
           </li>))

@@ -187,18 +187,19 @@ export const fetchActivities = async () => {
       }
     };
 
-    export const getUpdateRoutine = async (routineId) => {
+    export const getUpdateRoutine = async (id,editRoutineName, editRoutineGoal) => {
+      console.log(id,editRoutineName, editRoutineGoal)
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+        const response = await fetch(`${BASE_URL}/routines/${id}`, {
           method: "PATCH",
           headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+          'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
-            name: 'Long Cardio Day',
-            goal: 'To get your heart pumping!'
+            name: editRoutineName,
+            goal: editRoutineGoal
           })
         });
         const result = await response.json();

@@ -3,15 +3,17 @@ import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 import {getUpdateRoutine} from '../data-requests'
 
-const EditRoutine = (props) => 
-{
+const EditRoutine = (props) => {
+  const { id } = useParams();
+  console.log(id)
     const{
         editRoutineName,
         setEditRoutineName,
         editRoutineGoal,
         setEditRoutineGoal,
         userRoutines,
-        routines
+        routines,
+        routineId
     
     }= props;
 
@@ -19,19 +21,13 @@ const EditRoutine = (props) =>
     const updateRoutine = async (ev) => {
        
         ev.preventDefault();
-        userRoutines.filter((routine) => {
-       if (routine.id=  routine.id){
-           // console.log(routineId)
-             return routine.id
-           }  
-       })//
+       
         console.log(userRoutines)
        
-        console.log(id, name)
-        
-        try{
-            
-       //const result = await getUpdateRoutine(routineId,editRoutineName, editRoutineGoal)
+        //console.log(id, name)
+        try{ console.log(id) 
+       const result = await getUpdateRoutine(id,editRoutineName, editRoutineGoal)
+       console.log(result)
         }catch(err){
           console.error('problem in updateRoutine in Routines!', err);
         }
