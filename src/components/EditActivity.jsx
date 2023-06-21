@@ -36,7 +36,7 @@ const EditActivity = (props) => {
                  value={editActivityName}
                  onChange={(ev)=>{setEditActivityName(ev.target.value)}}
                  />
-                 <TextField id="filled-basi<>c"  variant="standard"
+                 <TextField id="filled"  variant="standard"
                  type="text"
                  placeholder='Routine Goal'
                  value={editActivityDescription}

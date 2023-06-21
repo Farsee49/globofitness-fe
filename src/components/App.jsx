@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Activities from "./Activities";
@@ -10,6 +9,9 @@ import RoutineActivities from "./RoutineActivities";
 import UserProfile from "./UserProfile";
 import EditRoutine from "./EditRoutine";
 import EditActivity from "./EditActivity";
+import AddActivity from "./AddActivity";
+import SingleRoutine from "./SingleRoutine";
+
 import {
 	routinesByUsername,
 	routinesWithActivity, 
@@ -18,10 +20,8 @@ import {
 	getUser
 	 } from "../data-requests";
 
-
-
-
 const App = () => {
+
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [isLoggedIn, setIsLoggedIn] = useState(false);   
@@ -39,27 +39,28 @@ const [newActivityName, setNewActivityName] = useState([]);
 const [newActivityDescription, setNewActivityDescription] = useState([]);
 const [editActivityName, setEditActivityName] = useState([]);
 const [editActivityDescription, setEditActivityDescription] = useState([]);
-const { id } = useParams();
+const [singleRoutine, setSingleRoutine] = useState([]);
+const [addActivityCount, setAddActivityCount] = useState([]);
+const [addActivityDuration, setAddActivityDuration] = useState([]);
+const [addActivityId, setAddActivityId] = useState([]);
 const navigate = useNavigate();
-   
 
-const tokenCheck = () => {
-	//console.log(window.localStorage.getItem('token'))
+
+ const tokenCheck = () => {
    if(window.localStorage.getItem('token')) {
     setToken(window.localStorage.getItem('token'));
    }
    console.log(token)
 };
 
-const getRoutines = async (routines) => {
-      
+   const getRoutines = async (routines) => {
 	try{
 	  const result =await fetchRoutines(token);
 		  //console.log(result)
 	  setRoutines(result)
-	 }catch(err){
+	}catch(err){
 	   console.error('problem getting routines inside Routines!', err);
-	 }   
+	}   
    };
 
    const getRoutinesByUsername = async (token) => {     
@@ -72,36 +73,30 @@ const getRoutines = async (routines) => {
     }catch(err){
         console.error('problem in getRoutinesByUsername in UserProfile!', err);
     } 
- };   
+   };   
 
-
-// const getRoutinesByUsername = async (token) => {
-// 	console.log(user)
-// 	const username = user.username
-// 	const result = await routinesByUsername(username)
-// 	setUserRoutines();
-// 	console.log(result);
-	
-// };
-
-const getCurrentUser = async (token) => {
+   const getCurrentUser = async (token) => {
+	try{
 	const result = await getUser(token);
     console.log(result);
 	setUser(result)
 	console.log(user)
-};
+    }catch(err){
+		console.error('problem at getUser in App!', err)
+	}
+   };
 
-useEffect(()=>{
-    tokenCheck();
-},[token]);
 
-useEffect(()=>{
-	getRoutines
-	getCurrentUser();
-	getRoutinesByUsername();
-   
-       // navigate('/myprofile')
-},[token]);
+    useEffect(()=>{
+        tokenCheck();
+    },[token]);
+
+    useEffect(()=>{
+    	getRoutines
+    	getCurrentUser();
+    	getRoutinesByUsername();
+     	// navigate('/myprofile')
+    },[token]);
 
 
   return( 
@@ -146,10 +141,8 @@ useEffect(()=>{
 					setActivities={setActivities}
 					newActivityName={newActivityName}
 					setNewActivityName={setNewActivityName}
-					
 					newActivityDescription={newActivityDescription}
 					setNewActivityDescription={setNewActivityDescription}
-
 					isLoggedIn={isLoggedIn}
 					routines={routines}
 					user={user} />
@@ -161,14 +154,13 @@ useEffect(()=>{
 					setNewRoutineGoal={setNewRoutineGoal}
 					newRoutineName={newRoutineName}
 					setNewRoutineName={setNewRoutineName}
-					editRoutineName={editRoutineName}
-					setEditRoutineName={setEditRoutineName}
-					editRoutineGoal={editRoutineGoal}
-					setEditRoutineGoal={setEditRoutineGoal}
+					singleRoutine={singleRoutine}
+					setSingleRoutine={setSingleRoutine}
 				    setRoutines={setRoutines}
 					routines={routines}
 					activities={activities}
 					isLoggedIn={isLoggedIn}
+					navigate={navigate}
 					user={user} />
 				}/>
 
@@ -186,6 +178,8 @@ useEffect(()=>{
 			 		setIsLoggedIn={setIsLoggedIn}
 					userRoutines={userRoutines}
 					setUserRoutines={setUserRoutines}
+					setSingleRoutine={setSingleRoutine}
+					navigate={navigate}
 				 	user={user}
 					token={token}/>
 				 }/>
@@ -207,6 +201,25 @@ useEffect(()=>{
 					setEditActivityName={setEditActivityName}
 					editActivityDescription={editActivityDescription}
 					setEditActivityDescription={setEditActivityDescription}
+				 />}/>
+
+				<Route path = '/add-activity/:id'
+				 element={<AddActivity
+					activities={activities}
+					addActivityId={addActivityId}
+					setAddActivityId={setAddActivityId}
+					addActivityCount={addActivityCount} 
+					setAddActivityCount={setAddActivityCount}
+					addActivityDuration={addActivityDuration}
+					setAddActivityDuration={setAddActivityDuration}
+				 />}/>
+
+				<Route path = '/single-routine/:id'
+				 element={<SingleRoutine
+				    activities={activities}
+					singleRoutine={singleRoutine} 
+					setSingleRoutine={setSingleRoutine}
+					navigate={navigate}
 				 />}/>
 
 

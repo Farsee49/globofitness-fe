@@ -11,29 +11,18 @@ const UserProfile = (props) => {
     const {
     user,
     token,
+    navigate,
     isLoggedIn,
     editRoutine,
     setEditRoutine,
     userRoutines,
-    setUserRoutines
+    setUserRoutines,
+    setSingleRoutine
     } = props;    
   console.log(userRoutines)
-//   const getRoutinesByUsername = async (token) => {     
-//     try{
-//         //console.log(user)
-//         const username = user.username
-//         const result = await routinesByUsername(username)
-//         setUserRoutines(result);
-//         //console.log(result);
-//     }catch(err){
-//         console.error('problem in getRoutinesByUsername in UserProfile!', err);
-//     } 
-//  };   
-
 
     //console.log(userRoutines)
     
-
 
     return(
     <>
@@ -57,7 +46,15 @@ const UserProfile = (props) => {
               <Link to={`/edit-routine/${userRoutine.id}`} >
               <Button  type='submit' variant='contained'size='small' >Edit Routine
               </Button></Link>
-             
+              <h2
+                onClick={() => {
+                setSingleRoutine(userRoutine);
+                  navigate(`/single-routine/${userRoutine.id}`);
+                }}
+              >
+                {userRoutine.name}
+              </h2>
+              
              
               
           </li>))

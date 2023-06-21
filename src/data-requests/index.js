@@ -170,6 +170,33 @@ export const fetchActivities = async () => {
     }
   };
 
+  export const getAddActivity = async (
+      id,
+      addActivityId,
+      addActivityCount,
+      addActivityDuration) => {
+
+        console.log(id, addActivityId, addActivityCount, addActivityDuration)
+    try {
+      const response = await fetch(`${BASE_URL}/routines/${id}/activities`, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          activityId: addActivityId,
+          count: addActivityCount, 
+          duration: addActivityDuration
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
 //===================================ROUTINES DATA REQUESTS=============//
   export const fetchRoutines = async () => {

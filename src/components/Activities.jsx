@@ -6,9 +6,12 @@ import { fetchActivities, createActivity } from "../data-requests";
 
 
 const Activities = (props) =>  {
-        const [newActivityName, setNewActivityName] = useState([]);
-        const [newActivityDescription, setNewActivityDescription] = useState([]);
+      
         const {
+            newActivityDescription,
+            setNewActivityDescription,
+            setNewActivityName,
+            newActivityName,
             setActivities,
             activities,
             token
@@ -49,7 +52,7 @@ useEffect(()=>{
          onChange={(ev)=>{setNewActivityName(ev.target.value)}} />
            </form>
            <form onSubmit={handleSubmit}>
-         <TextField id="filled-basic"  variant="standard"
+         <TextField id="filled"  variant="standard"
          type="text"
          placeholder='Activity Description'
          value={newActivityDescription}
@@ -65,6 +68,11 @@ useEffect(()=>{
           <Link to={`/edit-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Edit Activity
               </Button></Link>
+
+              <Link to={`/add-activity/${activity.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Add to Routine
+              </Button></Link>
+             
           </li>))
             }
         </ul>
