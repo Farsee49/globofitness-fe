@@ -12,24 +12,18 @@ const EditRoutine = (props) => {
         editRoutineGoal,
         setEditRoutineGoal,
         userRoutines,
-        routines,
-        routineId
-    
+        routines
     }= props;
 
-
     const updateRoutine = async (ev) => {
-       
+
         ev.preventDefault();
-       
         console.log(userRoutines)
-       
-        //console.log(id, name)
-        try{ console.log(id) 
-       const result = await getUpdateRoutine(id,editRoutineName, editRoutineGoal)
-       console.log(result)
+      try{ console.log(id) 
+          const result = await getUpdateRoutine(id,editRoutineName, editRoutineGoal)
+          console.log(result)
         }catch(err){
-          console.error('problem in updateRoutine in Routines!', err);
+          console.error('problem in updateRoutine in EditRoutines!', err);
         }
       };
     return(

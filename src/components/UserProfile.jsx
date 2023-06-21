@@ -7,9 +7,7 @@ import { Link, useParams } from "react-router-dom";
 
 
 const UserProfile = (props) => {
-  const { id} = useParams();
-
-  console.log(id)
+  
     const {
     user,
     token,
@@ -19,7 +17,7 @@ const UserProfile = (props) => {
     userRoutines,
     setUserRoutines
     } = props;    
-  
+  console.log(userRoutines)
 //   const getRoutinesByUsername = async (token) => {     
 //     try{
 //         //console.log(user)
@@ -50,10 +48,18 @@ const UserProfile = (props) => {
             <p>Creator: {userRoutine.creatorName}</p>
             <p>CreatorId: {userRoutine.creatorId}</p>
             <ul>Attached Activities: {userRoutine.activities.map((activity) =>(
-             <li key={activity.id}>{activity.name}</li>
-            ))}</ul><Link to={`/edit-routine/${userRoutine.id}`} >
+             <li key={activity.id}>{activity.name}
+              <Link to={`/edit-activity/${activity.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Edit Routine
+              </Button></Link></li>
+
+            ))}</ul>
+              <Link to={`/edit-routine/${userRoutine.id}`} >
               <Button  type='submit' variant='contained'size='small' >Edit Routine
               </Button></Link>
+             
+             
+              
           </li>))
         }
         

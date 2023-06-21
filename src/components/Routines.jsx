@@ -54,7 +54,7 @@ const Routines =  (props) => {
       ev.preventDefault()
       console.log(newRoutineName, newRoutineGoal)
       try{
-        //const result = await createRoutine(newRoutineName, newRoutineGoal);
+        const result = await createRoutine(newRoutineName, newRoutineGoal);
     }catch(err){
         console.error('problem in the handlesubmit in creating a routine!', err);
     }
@@ -101,6 +101,15 @@ const Routines =  (props) => {
               <Link to={`/edit-routine/${routine.id}`} >
               <Button  type='submit' variant='contained'size='small' >Edit Routine
               </Button></Link>
+
+
+              {/* <Checkbox
+              label= 'Deliver'
+              checked={updatedWillDeliver}
+              onChange={() => setWillDeliver(!updatedWillDeliver)}
+            /><>Available for Delivery     </> */}
+
+
              {/* <form onSubmit={updateRoutine}>
                 <TextField id="filled-basic"  variant="standard"
                  type="text"

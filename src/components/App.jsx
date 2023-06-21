@@ -9,7 +9,7 @@ import Nav from "./Navbar";
 import RoutineActivities from "./RoutineActivities";
 import UserProfile from "./UserProfile";
 import EditRoutine from "./EditRoutine";
-
+import EditActivity from "./EditActivity";
 import {
 	routinesByUsername,
 	routinesWithActivity, 
@@ -17,6 +17,7 @@ import {
 	fetchRoutines,
 	getUser
 	 } from "../data-requests";
+
 
 
 
@@ -34,6 +35,10 @@ const [editRoutineName, setEditRoutineName] = useState([]);
 const [editRoutineGoal, setEditRoutineGoal] = useState([]);
 const [newRoutineName, setNewRoutineName] = useState([]);
 const [newRoutineGoal, setNewRoutineGoal] = useState([]);
+const [newActivityName, setNewActivityName] = useState([]);
+const [newActivityDescription, setNewActivityDescription] = useState([]);
+const [editActivityName, setEditActivityName] = useState([]);
+const [editActivityDescription, setEditActivityDescription] = useState([]);
 const { id } = useParams();
 const navigate = useNavigate();
    
@@ -139,6 +144,12 @@ useEffect(()=>{
 				 element={<Activities
 					activities={activities}
 					setActivities={setActivities}
+					newActivityName={newActivityName}
+					setNewActivityName={setNewActivityName}
+					
+					newActivityDescription={newActivityDescription}
+					setNewActivityDescription={setNewActivityDescription}
+
 					isLoggedIn={isLoggedIn}
 					routines={routines}
 					user={user} />
@@ -179,15 +190,26 @@ useEffect(()=>{
 					token={token}/>
 				 }/>
 
-				 <Route path= '/edit-routine/:id'
-				  element={<EditRoutine
+				<Route path= '/edit-routine/:id'
+				 element={<EditRoutine
 					routines={routines}
 					editRoutineName={editRoutineName}
 					setEditRoutineName={setEditRoutineName}
 					editRoutineGoal={editRoutineGoal}
 					setEditRoutineGoal={setEditRoutineGoal}
 					userRoutines={userRoutines}
-				  />}/>
+			 	/>}/>
+
+				<Route path ='/edit-activity/:id'
+				 element={<EditActivity
+					activities={activities}
+					editActivityName={editActivityName}
+					setEditActivityName={setEditActivityName}
+					editActivityDescription={editActivityDescription}
+					setEditActivityDescription={setEditActivityDescription}
+				 />}/>
+
+
 
 			</Routes>
 		</>

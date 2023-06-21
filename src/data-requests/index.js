@@ -130,6 +130,30 @@ export const fetchActivities = async () => {
       console.error('ERROR Creating User in Data-requests!!!!',err);
     }
   };
+
+  export const getUpdateActivity = async (id,editActivityName, editActivityDescription) => {
+    console.log(id, editActivityName, editActivityDescription)
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${BASE_URL}/activities/${id}`, {
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        method: "PATCH",
+        body: JSON.stringify({
+          name: editActivityName,
+          description: editActivityDescription
+        })
+      });
+  
+        const result = await response.json();
+        console.log(result);
+        return result
+      } catch (err) {
+      console.error(err);
+      }
+  };
   
   export const routinesWithActivity = async (routine) => {
     try {

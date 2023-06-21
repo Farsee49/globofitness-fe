@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { fetchActivities, createActivity } from "../data-requests";
 
@@ -60,7 +61,11 @@ useEffect(()=>{
             {
             activities.map((activity) =>(
             <li key={activity.id} > <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>  
-          Description: {activity.description}</li>))
+          Description: {activity.description}
+          <Link to={`/edit-activity/${activity.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Edit Activity
+              </Button></Link>
+          </li>))
             }
         </ul>
  </>
