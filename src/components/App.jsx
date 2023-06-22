@@ -176,6 +176,7 @@ const navigate = useNavigate();
 				 element={<UserProfile 
 					isLoggedIn={isLoggedIn}
 			 		setIsLoggedIn={setIsLoggedIn}
+					getRoutinesByUsername={getRoutinesByUsername}
 					userRoutines={userRoutines}
 					setUserRoutines={setUserRoutines}
 					setSingleRoutine={setSingleRoutine}

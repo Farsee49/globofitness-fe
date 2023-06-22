@@ -238,6 +238,25 @@ export const fetchActivities = async () => {
       }
     };
 
+    export const deleteRoutine = async (id) => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${BASE_URL}/routines/6`, {
+          method: "DELETE",
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+          },
+        });
+        const result = await response.json();
+        console.log(result);
+        return result
+      } catch (err) {
+        console.error(err);
+      }
+  };
+        
+
     export const getUpdateRoutine = async (id,editRoutineName, editRoutineGoal) => {
       console.log(id,editRoutineName, editRoutineGoal)
       const token = localStorage.getItem("token");

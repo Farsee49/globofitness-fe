@@ -3,11 +3,7 @@ import {routinesByUsername} from '../data-requests'
 import  { Button } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 
-
-
-
 const UserProfile = (props) => {
-  
     const {
     user,
     token,
@@ -17,13 +13,15 @@ const UserProfile = (props) => {
     setEditRoutine,
     userRoutines,
     setUserRoutines,
-    setSingleRoutine
+    setSingleRoutine,
+    getRoutinesByUsername
     } = props;    
-  console.log(userRoutines)
-
+    //console.log(userRoutines)
     //console.log(userRoutines)
     
-
+    useEffect(()=>{
+      getRoutinesByUsername();
+  },[]);
     return(
     <>
         <h1>Render User Profile</h1>
@@ -53,10 +51,7 @@ const UserProfile = (props) => {
                 }}
               >
                 {userRoutine.name}
-              </h2>
-              
-             
-              
+              </h2> 
           </li>))
         }
         

@@ -25,6 +25,10 @@ const SingleRoutine = (props) => {
       <p>Creator: {singleRoutine.creatorName}</p>
       <p>CreatorId: {singleRoutine.creatorId}</p>
       </div>
+
+      <Link to={`/add-activity/${singleRoutine.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Add to Routine
+              </Button></Link>
       <ul>
             {
             activities.map((activity) =>(
