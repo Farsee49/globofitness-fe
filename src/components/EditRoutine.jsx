@@ -36,14 +36,14 @@ const EditRoutine = (props) => {
          <form onSubmit={updateRoutine}>
                 <TextField id="filled-basic"  variant="standard"
                  type="text"
-                 placeholder='Routine Name'
-                 value={editRoutineName}
+                 //placeholder='Routine Name'
+                 placeholder="Name"
                  onChange={(ev)=>{setEditRoutineName(ev.target.value)}}
                  />
                  <TextField id="filled-basi<>c"  variant="standard"
                  type="text"
                  placeholder='Routine Goal'
-                 value={editRoutineGoal}
+                
                  onChange={(ev)=>{setEditRoutineGoal(ev.target.value)}}
                  />
                  <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>

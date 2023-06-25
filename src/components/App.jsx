@@ -11,8 +11,12 @@ import EditRoutine from "./EditRoutine";
 import EditActivity from "./EditActivity";
 import AddActivity from "./AddActivity";
 import SingleRoutine from "./SingleRoutine";
+import SingleActivity from "./Single Activity";
+import ActivtyWithRoutines from "./ActivityWithRoutines";
+
 
 import {
+	getActivityWithRoutines,
 	getUpdateRoutineActivity,
 	routinesByUsername,
 	routinesWithActivity, 
@@ -21,7 +25,6 @@ import {
 	getUser,
 	destroyRoutine
 	 } from "../data-requests";
-import SingleActivity from "./Single Activity";
 
 const App = () => {
 	// const { id } = useParams();
@@ -51,6 +54,7 @@ const [singleActivity, setSingleActivity] = useState([])
 const [activityGoal, setActivityGoal] = useState([]);
 const [activityDuration, setActivityDuration] = useState([]);
 const [activityId, setActivityId] = useState([]);
+const [activityRoutines, setActivityRoutines] = useState([]);
 const navigate = useNavigate();
 
 
@@ -103,6 +107,16 @@ const getActivities = async () => {
 		console.error('problem at getUser in App!', err)
 	}
    };
+   const activityWithRoutines = async (token) => {
+	try{
+	const result = await getActivityWithRoutines(token);
+    console.log(result);
+	setActivityRoutines(result)
+	console.log(user)
+    }catch(err){
+		console.error('problem at getUser in App!', err)
+	}
+   };
 
    const deleteRoutine = async () => {
 
@@ -116,61 +130,21 @@ const getActivities = async () => {
 	  console.error('problem in Delete Routine in App!', err);
 	}
   };
+   const deleteRoutineActivity = async () => {
 
-   
+	console.log(id)
+	//console.log(activities)
+  try{ //console.log(id) 
+   const result = await destroyRoutine(id)
+	  //console.log(result)
+	  //navigate('/userprofile');
+	}catch(err){
+	  console.error('problem in Delete Routine in App!', err);
+	}
+  };
 
-//    useEffect(() => {
-//     Promise.all([
-// 		getRoutines(),
-// 		console.log(9900),
-// 		getActivities(),
-//     	getCurrentUser(),
-//     	getRoutinesByUsername()])
-//       .then(([user,
-//               activities,
-//               routines,
-//               userRoutines]) => {
-//           setUser(user)
-//           setActivities(activities)
-//           setRoutines(routines);
-//           setUserRoutines(userRoutines)
-//       })
-//       .catch ((error) => {
-//         return (
-//           console.error(error)
-//         );
-//       })
-
-//   }, []);
 
 useEffect(()=>{
-	const getActivities = async () => {
-	const result = await fetchActivities(token)
-	setActivities(result)
-	};
-
-	const getRoutines = async (routines) => {
-	const result =await fetchRoutines(token);
-	//console.log(result)
-	setRoutines(result)
-	};	
-	   
-	const getCurrentUser = async (token) => {
-    const result = await getUser(token);
-    console.log(result);
-    setUser(result)
-    console.log(user)
-	};
-
-	const getRoutinesByUsername = async (token) => {     
-		//console.log(user)
-		const username = user.username
-		const result = await routinesByUsername(username)
-		setUserRoutines(result);
-		//console.log(result);
-	   }; 
-	
-
 	getCurrentUser();
 	getRoutines();
 	getActivities();
@@ -178,17 +152,11 @@ useEffect(()=>{
 },[token]);
 
 
-    useEffect(()=>{
-		
-        tokenCheck();
-    },[,token]);
+ useEffect(()=>{
+	
+     tokenCheck();
+ },[,token]);
 
-    // useEffect(()=>{
-    // 	getRoutines()
-    // 	getCurrentUser();
-    // 	getRoutinesByUsername();
-    //  	// navigate('/myprofile')
-    // },[token]);
 
 
   return( 
@@ -348,6 +316,11 @@ useEffect(()=>{
 					setSingleActivity={setSingleActivity}
 					activities={activities}
 					navigate={navigate}
+				 />}/>
+
+				<Route path = '/activity-routines/:id'
+				 element={ <ActivtyWithRoutines 
+				 
 				 />}/>
 
 

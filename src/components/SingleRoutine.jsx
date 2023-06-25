@@ -72,7 +72,7 @@ const SingleRoutine = (props) => {
       </div>
 
       <Link to={`/add-activity/${singleRoutine.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
+              <Button  type='submit' variant='contained'size='small' >Add Activity
               </Button></Link>
 
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
@@ -126,7 +126,7 @@ const SingleRoutine = (props) => {
             }
         </ul> */}
         </>
-      <ul>
+      {/* <ul>
             {
             activities.map((activity) =>(
             <li key={activity.id} > <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>  
@@ -151,7 +151,7 @@ const SingleRoutine = (props) => {
              
           </li>))
             }
-        </ul>
+        </ul> */}
      
         </>
     )

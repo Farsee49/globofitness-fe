@@ -307,4 +307,23 @@ export const getUpdateRoutineActivity = async (id,activityGoal,activityDuration)
   }
 };
 
+export const destroyRoutineActivity = async (id) => {
+  const token = localStorage.getItem("token");
+
+  console.log('delete')
+  // try {
+  //   const response = await fetch(`${BASE_URL}/routine_activities/11`, {
+  //     headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+  //     },
+  //   });
+  //   const result = await response.json();
+  //   console.log(result);
+  //   return result
+  // } catch (err) {
+  //   console.error(err);
+  // }
+};
+
     
