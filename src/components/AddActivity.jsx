@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { getAddActivity } from "../data-requests";
@@ -8,6 +8,7 @@ const AddActivity = (props) => {
     const { id } = useParams();
     console.log(id)
     const{
+        navigate,
         activities,
         addActivityId,
         setAddActivityId,
@@ -25,11 +26,14 @@ const AddActivity = (props) => {
       try{ console.log(id) 
        const result = await getAddActivity(id, addActivityId, addActivityCount, addActivityDuration)
           //console.log(result)
+          navigate('/userprofile');
         }catch(err){
           console.error('problem in updateActivity in EditActivity!', err);
         }
       };
-
+      useEffect(()=>{
+        
+    },[]);
     return(
         <>
          <h1>Render Add Activity</h1>

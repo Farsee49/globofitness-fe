@@ -13,15 +13,19 @@ import AddActivity from "./AddActivity";
 import SingleRoutine from "./SingleRoutine";
 
 import {
+	getUpdateRoutineActivity,
 	routinesByUsername,
 	routinesWithActivity, 
 	fetchActivities,
 	fetchRoutines,
-	getUser
+	getUser,
+	destroyRoutine
 	 } from "../data-requests";
+import SingleActivity from "./Single Activity";
 
 const App = () => {
-
+	// const { id } = useParams();
+	// console.log(id)
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [isLoggedIn, setIsLoggedIn] = useState(false);   
@@ -30,7 +34,7 @@ const [token, setToken] = useState('');
 const [activities, setActivities] = useState([]);
 const [routines, setRoutines] = useState([]);
 const [userRoutines, setUserRoutines] = useState([]);
-const [routineActivities, setRoutineActivities] = useState([]);
+const [routineActivity, setRoutineActivity] = useState([]);
 const [editRoutineName, setEditRoutineName] = useState([]);
 const [editRoutineGoal, setEditRoutineGoal] = useState([]);
 const [newRoutineName, setNewRoutineName] = useState([]);
@@ -43,6 +47,10 @@ const [singleRoutine, setSingleRoutine] = useState([]);
 const [addActivityCount, setAddActivityCount] = useState([]);
 const [addActivityDuration, setAddActivityDuration] = useState([]);
 const [addActivityId, setAddActivityId] = useState([]);
+const [singleActivity, setSingleActivity] = useState([])
+const [activityGoal, setActivityGoal] = useState([]);
+const [activityDuration, setActivityDuration] = useState([]);
+const [activityId, setActivityId] = useState([]);
 const navigate = useNavigate();
 
 
@@ -53,13 +61,22 @@ const navigate = useNavigate();
    console.log(token)
 };
 
+const getActivities = async () => {
+	try{const result = await fetchActivities(token);
+		//console.log(result)
+	 setActivities(result); 
+	}catch(err){
+		console.error('problem getActivities in App!', err);
+	} 
+};
+
    const getRoutines = async (routines) => {
 	try{
 	  const result =await fetchRoutines(token);
 		  //console.log(result)
 	  setRoutines(result)
 	}catch(err){
-	   console.error('problem getting routines inside Routines!', err);
+	   console.error('problem with getRoutines inside App!', err);
 	}   
    };
 
@@ -71,10 +88,11 @@ const navigate = useNavigate();
         setUserRoutines(result);
         //console.log(result);
     }catch(err){
-        console.error('problem in getRoutinesByUsername in UserProfile!', err);
+        console.error('problem in getRoutinesByUsername in App!', err);
     } 
-   };   
+   }; 
 
+   
    const getCurrentUser = async (token) => {
 	try{
 	const result = await getUser(token);
@@ -86,17 +104,91 @@ const navigate = useNavigate();
 	}
    };
 
+   const deleteRoutine = async () => {
+
+	console.log(id)
+	//console.log(activities)
+  try{ //console.log(id) 
+   const result = await destroyRoutine(id)
+	  //console.log(result)
+	  //navigate('/userprofile');
+	}catch(err){
+	  console.error('problem in Delete Routine in App!', err);
+	}
+  };
+
+   
+
+//    useEffect(() => {
+//     Promise.all([
+// 		getRoutines(),
+// 		console.log(9900),
+// 		getActivities(),
+//     	getCurrentUser(),
+//     	getRoutinesByUsername()])
+//       .then(([user,
+//               activities,
+//               routines,
+//               userRoutines]) => {
+//           setUser(user)
+//           setActivities(activities)
+//           setRoutines(routines);
+//           setUserRoutines(userRoutines)
+//       })
+//       .catch ((error) => {
+//         return (
+//           console.error(error)
+//         );
+//       })
+
+//   }, []);
+
+useEffect(()=>{
+	const getActivities = async () => {
+	const result = await fetchActivities(token)
+	setActivities(result)
+	};
+
+	const getRoutines = async (routines) => {
+	const result =await fetchRoutines(token);
+	//console.log(result)
+	setRoutines(result)
+	};	
+	   
+	const getCurrentUser = async (token) => {
+    const result = await getUser(token);
+    console.log(result);
+    setUser(result)
+    console.log(user)
+	};
+
+	const getRoutinesByUsername = async (token) => {     
+		//console.log(user)
+		const username = user.username
+		const result = await routinesByUsername(username)
+		setUserRoutines(result);
+		//console.log(result);
+	   }; 
+	
+
+	getCurrentUser();
+	getRoutines();
+	getActivities();
+    getRoutinesByUsername();
+},[token]);
+
 
     useEffect(()=>{
+		
         tokenCheck();
-    },[token]);
+    },[,token]);
 
-    useEffect(()=>{
-    	getRoutines
-    	getCurrentUser();
-    	getRoutinesByUsername();
-     	// navigate('/myprofile')
-    },[token]);
+    // useEffect(()=>{
+    // 	getRoutines()
+    // 	getCurrentUser();
+    // 	getRoutinesByUsername();
+    //  	// navigate('/myprofile')
+    // },[token]);
 
 
   return( 
@@ -143,6 +235,7 @@ const navigate = useNavigate();
 					setNewActivityName={setNewActivityName}
 					newActivityDescription={newActivityDescription}
 					setNewActivityDescription={setNewActivityDescription}
+					//getActivities={getActivities}
 					isLoggedIn={isLoggedIn}
 					routines={routines}
 					user={user} />
@@ -158,17 +251,26 @@ const navigate = useNavigate();
 					setSingleRoutine={setSingleRoutine}
 				    setRoutines={setRoutines}
 					routines={routines}
+					//getRoutines={getRoutines}
 					activities={activities}
 					isLoggedIn={isLoggedIn}
 					navigate={navigate}
 					user={user} />
 				}/>
 
-			    <Route path= '/routine-activities'
+			    <Route path= '/routine-activities/:id'
 				 element={<RoutineActivities
 					routines={routines}
 					activities={activities}
 					isLoggedIn={isLoggedIn}
+					routineActivity={routineActivity}
+					setRoutineActivity={setRoutineActivity}
+					activityId={activityId}
+					setActivityId={setActivityId}
+					activityGoal={activityGoal}
+					setActivityGoal={setActivityGoal}
+					activityDuration={activityDuration}
+					setActivityDuration={setActivityDuration}
 					user={user} />
 			    }/>
 
@@ -176,23 +278,29 @@ const navigate = useNavigate();
 				 element={<UserProfile 
 					isLoggedIn={isLoggedIn}
 			 		setIsLoggedIn={setIsLoggedIn}
+					getRoutines={getRoutines}
+					routineActivity={routineActivity}
+					setRoutineActivity={setRoutineActivity}
 					getRoutinesByUsername={getRoutinesByUsername}
 					userRoutines={userRoutines}
 					setUserRoutines={setUserRoutines}
 					setSingleRoutine={setSingleRoutine}
 					navigate={navigate}
 				 	user={user}
-					token={token}/>
-				 }/>
+					token={token}
+				/>}/>
 
 				<Route path= '/edit-routine/:id'
 				 element={<EditRoutine
 					routines={routines}
+					singleRoutine={singleRoutine}
+					setSingleRoutine={setSingleRoutine}
 					editRoutineName={editRoutineName}
 					setEditRoutineName={setEditRoutineName}
 					editRoutineGoal={editRoutineGoal}
 					setEditRoutineGoal={setEditRoutineGoal}
 					userRoutines={userRoutines}
+					navigate={navigate}
 			 	/>}/>
 
 				<Route path ='/edit-activity/:id'
@@ -207,6 +315,7 @@ const navigate = useNavigate();
 				<Route path = '/add-activity/:id'
 				 element={<AddActivity
 					activities={activities}
+					navigate={navigate}
 					addActivityId={addActivityId}
 					setAddActivityId={setAddActivityId}
 					addActivityCount={addActivityCount} 
@@ -218,11 +327,28 @@ const navigate = useNavigate();
 				<Route path = '/single-routine/:id'
 				 element={<SingleRoutine
 				    activities={activities}
+					deleteRoutine={deleteRoutine}
 					singleRoutine={singleRoutine} 
+					getRoutines={getRoutines}
+					getCurrentUser={getCurrentUser}
+					getRoutinesByUsername={getRoutinesByUsername}
 					setSingleRoutine={setSingleRoutine}
+					setRoutineActivity={setRoutineActivity}
+					activityGoal={activityGoal}
+					setActivityGoal={setActivityGoal}
+					activityDuration={activityDuration}
+					setActivityDuration={setActivityDuration}
+					userRoutines={userRoutines}
 					navigate={navigate}
 				 />}/>
-
+				
+				<Route path = '/single-activity/:id'
+				 element={ <SingleActivity 
+					singleActivity={singleActivity}
+					setSingleActivity={setSingleActivity}
+					activities={activities}
+					navigate={navigate}
+				 />}/>
 
 
 			</Routes>

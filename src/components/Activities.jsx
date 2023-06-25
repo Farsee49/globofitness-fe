@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
-import { fetchActivities, createActivity } from "../data-requests";
+import { createActivity } from "../data-requests";
 
 
 
@@ -12,21 +12,16 @@ const Activities = (props) =>  {
             setNewActivityDescription,
             setNewActivityName,
             newActivityName,
+            getActivities,
             setActivities,
             activities,
             token
              } = props
 
-        const getActivities = async () => {
-            try{const result = await fetchActivities(token);
-                //console.log(result)
-             setActivities(result); 
-            }catch(err){
-                console.error('problem getting activities in Activities!', err);
-            } 
-        };
+        
         const handleSubmit = async (ev) => {
             ev.preventDefault()
+         //getActivities()
             console.log(newActivityName, newActivityDescription)
             try{
                 const result = await createActivity(newActivityName, newActivityDescription)
@@ -35,11 +30,31 @@ const Activities = (props) =>  {
             }
         };
 
-useEffect(()=>{
-    getActivities()
-},[]);
- 
-
+       
+         
+        //     Promise.all([
+        //         //getRoutines(),
+        //         getActivities(),
+        //         //getCurrentUser(),
+        //         //getRoutinesByUsername()
+        //         ])
+        //       .then(([user,
+        //               result,
+        //               activities,
+        //               routines,
+        //               userRoutines]) => {
+        //          // setUser(user)
+        //           setActivities(activities)
+        //           //setRoutines(routines);
+        //          // setUserRoutines(userRoutines)
+        //       })
+        //       .catch ((error) => {
+        //         return (
+        //           console.error(error)
+        //         );
+        //       })
+        
+        //   }, []);
     return(
  <>
    <h1>Activities Render</h1>
@@ -69,9 +84,9 @@ useEffect(()=>{
               <Button  type='submit' variant='contained'size='small' >Edit Activity
               </Button></Link>
 
-              <Link to={`/add-activity/${activity.id}`} >
+              {/* <Link to={`/add-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link>
+              </Button></Link> */}
              
           </li>))
             }

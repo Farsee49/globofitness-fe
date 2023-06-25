@@ -32,13 +32,13 @@ const EditActivity = (props) => {
             <form onSubmit={updateActivity}>
                 <TextField id="filled-basic"  variant="standard"
                  type="text"
-                 placeholder='Routine Name'
+                 placeholder='Name'
                  value={editActivityName}
                  onChange={(ev)=>{setEditActivityName(ev.target.value)}}
                  />
                  <TextField id="filled"  variant="standard"
                  type="text"
-                 placeholder='Routine Goal'
+                 placeholder='Description'
                  value={editActivityDescription}
                  onChange={(ev)=>{setEditActivityDescription(ev.target.value)}}
                  />

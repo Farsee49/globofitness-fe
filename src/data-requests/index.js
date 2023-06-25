@@ -155,9 +155,9 @@ export const fetchActivities = async () => {
       }
   };
   
-  export const routinesWithActivity = async (routine) => {
+  export const getActivityWithRoutines = async (id) => {
     try {
-      const response = await fetch(`${BASE_URL}/activities/${routine}/routines`, {
+      const response = await fetch(`${BASE_URL}/activities/${id}/routines`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -238,10 +238,11 @@ export const fetchActivities = async () => {
       }
     };
 
-    export const deleteRoutine = async (id) => {
+    export const destroyRoutine = async (id) => {
+      console.log(id)
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch(`${BASE_URL}/routines/6`, {
+        const response = await fetch(`${BASE_URL}/routines/${id}`, {
           method: "DELETE",
           headers: {
           'Content-Type': 'application/json',
@@ -280,6 +281,30 @@ export const fetchActivities = async () => {
       }
     };
         
+//===================================ROUTINE ACTIVITIY DATA REQUESTS=============//
 
+export const getUpdateRoutineActivity = async (id,activityGoal,activityDuration) => {
+  const token = localStorage.getItem("token");
+
+   console.log(id,activityGoal,activityDuration)
+  try {
+    const response = await fetch(`${BASE_URL}/routine_activities/${id}`, {
+      method: "PATCH",
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        count:activityGoal,
+        duration:activityDuration
+      })
+    });
+    const result = await response.json();
+    console.log(result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+};
 
     

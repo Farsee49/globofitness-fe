@@ -3,15 +3,15 @@ import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { fetchRoutines, createRoutine, getUpdateRoutine} from '../data-requests';
 import { Link, useParams, useNavigate} from "react-router-dom";
 
-
-
 const Routines =  (props) => {
  const navigate = useNavigate();
  const { id } = useParams();
-  console.log(id)
+  console.log(id);
+
     const {
       routines,
       setRoutines,
+      //getRoutines,
       activities,
       user,
       token,
@@ -23,16 +23,6 @@ const Routines =  (props) => {
     } = props;
 
   
-      const getRoutines = async (routines) => {
-       try{
-         const result =await fetchRoutines(token);
-		     //console.log(result)
-         setRoutines(result)
-        }catch(err){
-          console.error('problem getting routines inside Routines!', err);
-        }   
-      };
-
      const createNewRoutine = async (ev) => {
       ev.preventDefault()
       console.log(newRoutineName, newRoutineGoal)
@@ -43,9 +33,9 @@ const Routines =  (props) => {
       }
     };
 
-    useEffect(()=>{
-      getRoutines();
-  },[token]);
+  //   useEffect(()=>{
+  //     getRoutines();
+  // },[]);
   
   return(
     <>
@@ -89,10 +79,10 @@ const Routines =  (props) => {
              
             ))}</ul><h1>Edit Routine</h1>
 
-              <Link to={`/edit-routine/${routine.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Routine
-              </Button></Link>
-
+           <Button  type='submit' variant='contained'size='small'  onClick={() => {
+             setSingleRoutine(routine);
+               navigate(`/edit-routine/${routine.id}`);
+               }}>Edit Routine</Button>
               {/* <Link to={`/add-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
               </Button></Link> */}

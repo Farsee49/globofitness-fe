@@ -2,6 +2,7 @@ import React from "react";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 import {getUpdateRoutine} from '../data-requests'
+import SingleRoutine from "./SingleRoutine";
 
 const EditRoutine = (props) => {
   const { id } = useParams();
@@ -11,7 +12,9 @@ const EditRoutine = (props) => {
         setEditRoutineName,
         editRoutineGoal,
         setEditRoutineGoal,
+        singleRoutine,
         userRoutines,
+        navigate,
         routines
     }= props;
 
@@ -19,9 +22,11 @@ const EditRoutine = (props) => {
 
         ev.preventDefault();
         console.log(userRoutines)
-      try{ console.log(id) 
+        console.log(id) 
+      try{
           const result = await getUpdateRoutine(id,editRoutineName, editRoutineGoal)
           console.log(result)
+          navigate('/userprofile');
         }catch(err){
           console.error('problem in updateRoutine in EditRoutines!', err);
         }
@@ -43,6 +48,13 @@ const EditRoutine = (props) => {
                  />
                  <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
              </form>
+             <h1>Edit Routine Render</h1>
+         <div id="routineCard">
+      <h1>{singleRoutine.name}</h1> 
+       <p>Goal: {singleRoutine.goal}</p>
+      <p>Creator: {singleRoutine.creatorName}</p>
+      <p>CreatorId: {singleRoutine.creatorId}</p>
+      </div>
       </>
     )
 };

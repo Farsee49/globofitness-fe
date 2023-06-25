@@ -4,6 +4,8 @@ import  { Button } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 
 const UserProfile = (props) => {
+  const { id } = useParams();
+  console.log(id)
     const {
     user,
     token,
@@ -14,13 +16,17 @@ const UserProfile = (props) => {
     userRoutines,
     setUserRoutines,
     setSingleRoutine,
-    getRoutinesByUsername
+    getRoutines,
+    getRoutinesByUsername,
+    setRoutineActivity
     } = props;    
-    //console.log(userRoutines)
-    //console.log(userRoutines)
+  console.log(userRoutines)
+    console.log(user.id)
     
     useEffect(()=>{
-      getRoutinesByUsername();
+      getRoutines()
+      getRoutinesByUsername()
+     //navigate('/activities')
   },[]);
     return(
     <>
@@ -30,31 +36,35 @@ const UserProfile = (props) => {
          userRoutines && userRoutines.map((userRoutine) =>(
           <li key={userRoutine.id}>
             <p>Id: {userRoutine.id}</p>
-            <p>Name: {userRoutine.name}</p>
+            <p >Name: {userRoutine.name}</p>
             <p>Goal: {userRoutine.goal}</p>
             <p>Creator: {userRoutine.creatorName}</p>
             <p>CreatorId: {userRoutine.creatorId}</p>
             <ul>Attached Activities: {userRoutine.activities.map((activity) =>(
-             <li key={activity.id}>{activity.name}
-              <Link to={`/edit-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Routine
-              </Button></Link></li>
+             <li key={activity.id}>Activity Name:{activity.name}
+              <Link to={`/routine-activities/${activity.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Edit Routine Activity
+              </Button></Link>
+              <p>Activity Id: {activity.routineActivityId}</p></li>
+             
 
             ))}</ul>
-              <Link to={`/edit-routine/${userRoutine.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Routine
-              </Button></Link>
-              <h2
+            
+              <Button  type='submit' variant='contained'size='small'  onClick={() => {
+  setSingleRoutine(userRoutine);
+    navigate(`/edit-routine/${userRoutine.id}`);
+    }}>Edit Routine</Button>
+              
+              <Button  type='submit' variant='contained'size='small'
                 onClick={() => {
                 setSingleRoutine(userRoutine);
                   navigate(`/single-routine/${userRoutine.id}`);
                 }}
               >
                 {userRoutine.name}
-              </h2> 
+              </Button>
           </li>))
-        }
-        
+        } 
     </>
   )
 };
@@ -62,4 +72,12 @@ const UserProfile = (props) => {
 export default UserProfile;
 
 
-       
+// onClick={() => {
+//   setSingleRoutine(userRoutine);
+//     navigate(`/edit-routine/${userRoutine.id}`);
+//   }}
+
+// onClick={() => {
+//   setRoutineActivity(activity);
+//     navigate(`/routine-activities/${activity.id}`)
+//   }}
