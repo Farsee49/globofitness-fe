@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Typography, Button, TextField, Checkbox } from "@mui/material";
+import React, { useState, useEffect, Fragment } from "react";
+import { Typography, Button, TextField, Checkbox,Card } from "@mui/material";
 import {
   fetchRoutines,
   createRoutine,
@@ -11,23 +11,25 @@ const Routines = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
+ 
 
   const {
     routines,
     setRoutines,
-    //getRoutines,
+    getRoutines,
     activities,
     user,
     token,
     newRoutineGoal,
+    isLoggedIn,
     newRoutineName,
     setNewRoutineName,
     setNewRoutineGoal,
     setSingleRoutine,
   } = props;
 
-  console.log(user);
-
+  console.log(user.id);
+ console.log(isLoggedIn)
   const createNewRoutine = async (ev) => {
     ev.preventDefault();
     console.log(newRoutineName, newRoutineGoal);
@@ -38,9 +40,9 @@ const Routines = (props) => {
     }
   };
 
-  //   useEffect(()=>{
-  //     getRoutines();
-  // },[]);
+    useEffect(()=>{
+      getRoutines();
+  },[]);
 
   return (
     <>
@@ -75,53 +77,27 @@ const Routines = (props) => {
       <ol>
         {routines &&
           routines.map((routine) => (
-            <li key={routine.id}>
-              <p>Id: {routine.id}</p>
-              <p>Name: {routine.name}</p>
-              <p>Goal: {routine.goal}</p>
-              <p>Creator: {routine.creatorName}</p>
-              <p>CreatorId: {routine.creatorId}</p>
-              <h2
-                onClick={() => {
-                  setSingleRoutine(routine);
-                  navigate(`/single-routine/${routine.id}`);
-                }}
-              >
-                {routine.name}
-              </h2>
-              <ul>
-                Attached Activities:{" "}
-                {routine.activities.map((activity) => (
-                  <li key={activity.id}>{activity.name}</li>
+            <Fragment key={routine.id}>
+              
+              <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '400px', margin: '8px'}}>
+            <Typography variant="h4" color='black' > Name:{ routine.name}</Typography>
+            <Typography variant="h4" color='black'>CreatorId: {routine.creatorId}</Typography>
+            <Typography variant="h4" color='black'>Goal: {routine.goal}</Typography>
+            <Typography variant="h4" color='black' > Creator:{ routine.creatorName}</Typography>
+            <Typography variant="h4" color='black' > Id:{ routine.id}</Typography>
+              <>
+               {routine.activities.length > 0 ?( <Typography variant="h5" color='black'>Attached Activities:</Typography>):(null) }
+               {routine.activities.map((activity) => (
+                  <Fragment key={activity.id}>
+                 
+                 <Typography variant="h6" color='black'>Name: {activity.name}</Typography>
+                 <Typography variant="h5" color='black'>Description: {activity.description}</Typography>
+                 <Typography variant="h5" color='black'>Count: {activity.count}</Typography>
+                 <Typography variant="h5" color='black'>ID: {activity.id}</Typography></Fragment>
                 ))}
-              </ul>
-              {routine.creatorId === user.id ? (
-                <>
-                  <h1>Edit Routine</h1>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    size="small"
-                    onClick={() => {
-                      setSingleRoutine(routine);
-                      navigate(`/edit-routine/${routine.id}`);
-                    }}
-                  >
-                    Edit Routine
-                  </Button>
-                </>
-              ) : null}
-
-              {/* <Link to={`/add-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link> */}
-
-              {/* <Checkbox
-              label= 'Deliver'
-              checked={updatedWillDeliver}
-              onChange={() => setWillDeliver(!updatedWillDeliver)}
-            /><>Available for Delivery     </> */}
-            </li>
+                </> 
+              </Card> 
+            </Fragment>
           ))}
       </ol>
     </>

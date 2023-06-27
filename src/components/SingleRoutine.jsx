@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import  { Typography,Button,TextField,Checkbox } from '@mui/material';
+import React, {Fragment, useEffect} from "react";
+import  { Typography,Button,TextField,Checkbox, Card } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 import {destroyRoutine,getUpdateRoutineActivity, getActivityWithRoutines, routinesByUsername} from '../data-requests'
 import Activities from "./Activities";
@@ -52,106 +52,40 @@ const SingleRoutine = (props) => {
 
     return(
         <>
+        <Fragment>
          <h1>SingleRoutine Render</h1>
-         <div id="routineCard">
-      <h1>{singleRoutine.name}</h1> 
-       <p>Goal: {singleRoutine.goal}</p>
-      <p>Creator: {singleRoutine.creatorName}</p>
-      <p>CreatorId: {singleRoutine.creatorId}</p>
-      <ul>Attached Activities: {singleRoutine.activities.map((activity) =>(
-             <li key={activity.id} onClick={() => {
-              setRoutineActivity(activity);
-                navigate(`/routine-activities/${activity.routineActivityId}`);
-              }}>Activity Name:  {activity.name}
-              <Link to={`/routine-activities/${activity.routineActivityId}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Routine Activity
-              </Button></Link>
-                <p>RoutineActivity Id: {activity.routineActivityId}</p></li>
-
-            ))}</ul>
-      </div>
-
-      <Link to={`/add-activity/${singleRoutine.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
+        <Card style={{backgroundColor: "purple", border: "5px solid black" }}>
+            <Typography variant="h5" color='black'> Name: {singleRoutine.name}</Typography>
+            <Typography variant="h5" color='black'> Creator: {singleRoutine.creatorName}</Typography>
+            <Typography variant="h5" color='black'> Goal: {singleRoutine.goal}</Typography>
+            <Typography variant="h5" color='black'> CreatorId: {singleRoutine.creatorId}</Typography>
+     
+            {singleRoutine.activities.length > 0 ?( <Typography variant="h5" color='black'>Attached Activities:</Typography>):(null) }
+            <Typography variant="h5" color='black'>{singleRoutine.activities.map((activity) =>(
+             <Fragment key={activity.id}> 
+              <Typography variant="h6" color='black' > Name:{ activity.name}</Typography>
+              </Fragment>
+    
+            ))}</Typography>
+        </Card>
+    
+              <Link to={`/add-activity/${singleRoutine.id}`} >
+              <Button  type='submit' variant='contained'size='small' >Add Activity
               </Button></Link>
 
-              <Button  type='submit' variant='contained'size='small'  onClick={() => {
-  setSingleRoutine(singleRoutine);
-    navigate(`/edit-routine/${singleRoutine.id}`);
-    }}>Edit Routine</Button>
+            <Button  type='submit' variant='contained'size='small'  onClick={() => {
+              setSingleRoutine(singleRoutine);
+              navigate(`/edit-routine/${singleRoutine.id}`);
+                      }}>Edit Routine
+            </Button>
 
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
     destroyRoutine(id)
     //navigate('/userprofile');
-              }}>Delete Routine</Button>
+              }}>Delete Routine</Button></Fragment>
 
-<>
-         <h1>Routine Activity Render</h1>
       
-
-      {/* <Link to={`/add-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link> */}
-
-              <form onSubmit={updateRoutineActivity}>
-                <TextField id="filled-basic"  variant="standard"
-                 type="text"
-                 placeholder='Count'
-                 value={activityGoal}
-                 onChange={(ev)=>{setActivityGoal(ev.target.value)}}
-                 />
-                 <TextField id="filled"  variant="standard"
-                 type="text"
-                 placeholder='Duration'
-                 value={activityDuration}
-                 onChange={(ev)=>{setActivityDuration(ev.target.value)}}
-                 />
-                
-                 <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
-             </form>
-      {/* <ul>
-            {
-            activities.map((activity) =>(
-            <li key={activity.id} > <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>  
-          Description: {activity.description}
-          <Link to={`/edit-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Activity
-              </Button></Link>
-
-              <Link to={`/add-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link>
-             
-          </li>))
-            }
-        </ul> */}
-        </>
-      <ul>
-            {
-            activities.map((activity) =>(
-            <li key={activity.id} > <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>  
-          Description: {activity.description}
-          <Link to={`/edit-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Edit Activity
-              </Button></Link>
-
-              <Link to={`/add-activity/${activity.id}`} >
-              <Button 
-               type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link>
-
-              <Button  type='submit' variant='contained'size='small'
-                onClick={() => {
-                  setRoutineActivity(activity);
-                  navigate(`/routine-activities/${activity.id}`);
-                }}
-              >
-                {activity.name}
-              </Button>
-             
-          </li>))
-            }
-        </ul>
+     
      
         </>
     )
