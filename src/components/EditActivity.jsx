@@ -8,6 +8,7 @@ const EditActivity = (props) => {
   console.log(id);
   const {
     activities,
+    navigate,
     editActivityName,
     setEditActivityName,
     editActivityDescription,
@@ -27,6 +28,7 @@ const EditActivity = (props) => {
         editActivityDescription
       );
       console.log(result);
+      navigate('/userprofile')
     } catch (err) {
       console.error("problem in updateActivity in EditActivity!", err);
     }

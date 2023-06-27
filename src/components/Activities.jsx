@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Typography, Button, TextField, Checkbox } from "@mui/material";
+import React, { useState, useEffect,Fragment } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { Typography, Button, TextField, Checkbox,Card } from "@mui/material";
 import { createActivity } from "../data-requests";
 
 const Activities = (props) => {
@@ -12,20 +12,23 @@ const Activities = (props) => {
     getActivities,
     setActivities,
     activities,
-    token,
+    navigate,
     setEditActivityName,
     setEditActivityDescription,
   } = props;
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    //getActivities()
+    getActivities()
     console.log(newActivityName, newActivityDescription);
     try {
       const result = await createActivity(
         newActivityName,
         newActivityDescription
       );
+      navigate('/activities')
+      setNewActivityName('')
+      setNewActivityDescription('')
     } catch (err) {
       console.error("problem in the handlesubmit in creating a activity!", err);
     }
@@ -85,12 +88,15 @@ const Activities = (props) => {
           SUBMIT
         </Button>
       </form>
-      <ul>
+      <>
         {activities.map((activity) => (
-          <li key={activity.id}>
-            {" "}
-            <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>
-            Description: {activity.description}
+          <Fragment key={activity.id}>
+          
+            <Card style={{backgroundColor: "purple", border: "5px solid black" }}>
+            <Typography variant="h5" color='black'>Name: {activity.name}</Typography>
+            <Typography variant="h5" color='black'>Description: {activity.description}</Typography>
+            <Typography variant="h5" color='black' > Id:{ activity.id}</Typography>
+
             <Link to={`/edit-activity/${activity.id}`}>
               <Button
                 type="submit"
@@ -103,13 +109,13 @@ const Activities = (props) => {
               >
                 Edit Activity
               </Button>
-            </Link>
+            </Link></Card>
             {/* <Link to={`/add-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link> */}
-          </li>
+              </Button></Link> */}  
+          {" "}</Fragment>
         ))}
-      </ul>
+      </>
     </>
   );
 };

@@ -24,7 +24,7 @@ import {
 	getUser,
 	destroyRoutine
 	 } from "../data-requests";
-import SingleActivity from "./Single Activity";
+
 
 const App = () => {
 	// const { id } = useParams();
@@ -242,6 +242,7 @@ useEffect(()=>{
           element={
             <Activities
               activities={activities}
+			  getActivities={getActivities}
               setActivities={setActivities}
               newActivityName={newActivityName}
               setNewActivityName={setNewActivityName}
@@ -250,6 +251,7 @@ useEffect(()=>{
               //getActivities={getActivities}
               isLoggedIn={isLoggedIn}
               routines={routines}
+			  navigate={navigate}
               user={user}
               setEditActivityDescription={setEditActivityDescription}
               setEditActivityName={setEditActivityName}
@@ -269,7 +271,7 @@ useEffect(()=>{
               setSingleRoutine={setSingleRoutine}
               setRoutines={setRoutines}
               routines={routines}
-              //getRoutines={getRoutines}
+              getRoutines={getRoutines}
               activities={activities}
               isLoggedIn={isLoggedIn}
               navigate={navigate}
@@ -306,6 +308,10 @@ useEffect(()=>{
               setIsLoggedIn={setIsLoggedIn}
               getRoutines={getRoutines}
               routineActivity={routineActivity}
+			  newRoutineGoal={newRoutineGoal}
+              setNewRoutineGoal={setNewRoutineGoal}
+              newRoutineName={newRoutineName}
+              setNewRoutineName={setNewRoutineName}
               setRoutineActivity={setRoutineActivity}
               getRoutinesByUsername={getRoutinesByUsername}
               userRoutines={userRoutines}
@@ -340,6 +346,7 @@ useEffect(()=>{
           element={
             <EditActivity
               activities={activities}
+			  navigate={navigate}
               editActivityName={editActivityName}
               setEditActivityName={setEditActivityName}
               editActivityDescription={editActivityDescription}

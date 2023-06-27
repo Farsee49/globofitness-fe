@@ -109,26 +109,26 @@ export const fetchActivities = async () => {
     console.log(' create act call')
     console.log(newActivityName, newActivityDescription)
     const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(`${BASE_URL}/activities`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: newActivityName,
-          description: newActivityDescription,
-        }),
-      });
+    // try {
+    //   const response = await fetch(`${BASE_URL}/activities`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //     body: JSON.stringify({
+    //       name: newActivityName,
+    //       description: newActivityDescription,
+    //     }),
+    //   });
   
-      const result = await response.json();
+    //   const result = await response.json();
   
-      console.log(result);
-      return result;
-    } catch (err) {
-      console.error('ERROR Creating User in Data-requests!!!!',err);
-    }
+    //   console.log(result);
+    //   return result;
+    // } catch (err) {
+    //   console.error('ERROR Creating User in Data-requests!!!!',err);
+    // }
   };
 
   export const getUpdateActivity = async (id,editActivityName, editActivityDescription) => {
