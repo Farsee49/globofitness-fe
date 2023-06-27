@@ -27,8 +27,7 @@ import {
 
 
 const App = () => {
-	// const { id } = useParams();
-	// console.log(id)
+	
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [isLoggedIn, setIsLoggedIn] = useState(false);   
@@ -147,31 +146,6 @@ const navigate = useNavigate();
 //   }, []);
 
 useEffect(()=>{
-	const getActivities = async () => {
-	const result = await fetchActivities(token)
-	setActivities(result)
-	};
-
-	const getRoutines = async (routines) => {
-	const result =await fetchRoutines(token);
-	//console.log(result)
-	setRoutines(result)
-	};	
-	   
-	const getCurrentUser = async (token) => {
-    const result = await getUser(token);
-    console.log(result);
-    setUser(result)
-    console.log(user)
-	};
-
-	const getRoutinesByUsername = async (token) => {     
-		//console.log(user)
-		const username = user.username
-		const result = await routinesByUsername(username)
-		setUserRoutines(result);
-		//console.log(result);
-	   }; 
 	
 
 	getCurrentUser();
@@ -186,12 +160,7 @@ useEffect(()=>{
         tokenCheck();
     },[,token]);
 
-    // useEffect(()=>{
-    // 	getRoutines()
-    // 	getCurrentUser();
-    // 	getRoutinesByUsername();
-    //  	// navigate('/myprofile')
-    // },[token]);
+   
 
   return (
     <>
@@ -242,7 +211,7 @@ useEffect(()=>{
           element={
             <Activities
               activities={activities}
-			  getActivities={getActivities}
+			        getActivities={getActivities}
               setActivities={setActivities}
               newActivityName={newActivityName}
               setNewActivityName={setNewActivityName}
@@ -251,7 +220,7 @@ useEffect(()=>{
               //getActivities={getActivities}
               isLoggedIn={isLoggedIn}
               routines={routines}
-			  navigate={navigate}
+			        navigate={navigate}
               user={user}
               setEditActivityDescription={setEditActivityDescription}
               setEditActivityName={setEditActivityName}
