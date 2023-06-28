@@ -80,12 +80,10 @@ const SingleRoutine = (props) => {
             </Button>
 
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
-    destroyRoutine(id)
-    //navigate('/userprofile');
+              destroyRoutine(id)
+               navigate('/userprofile');
               }}>Trash Routine</Button></Fragment>
 
-      
-     
      
         </>
     )

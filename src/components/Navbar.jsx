@@ -26,23 +26,22 @@ const Nav = (props) => {
         <header>
              <Typography variant="h2" color='black' >GLOBO GYM APP</Typography>
             {isLoggedIn ?(<>
-             <Button variant="contained" size="small" onClick={logout}>LogOut</Button>
+             <Button className="Button" variant="contained" size="small" onClick={logout}>LogOut</Button>
              <Link to='/routines'><Button variant="contained" size="small">
-                Routines</Button></Link>
+                Routines</Button ></Link>
              <Link to='/activities'><Button variant="contained" size="small">
                Activities</Button></Link>
-             
              <Link to='/userprofile'><Button variant="contained" size="small">
                User Profile</Button></Link>
            
         </>):(<>
-            <Link to='/login'><Button variant="contained" size="small">
+            <Link to='/login'><Button variant="contained" size="small"  >
                 Login</Button></Link>
             <Link to='/register'><Button  type='submit' variant='contained'size='small'>
                 Register</Button></Link>
             <Link to='/routines'><Button variant="contained" size="small">
                 Routines</Button></Link>
-            <Link to='/activities'><Button  type='submit' variant='contained'size='small'>
+            <Link to='/activities'><Button variant="contained" size="small" >
                 Activities</Button></Link></>)}
         </header>
       )

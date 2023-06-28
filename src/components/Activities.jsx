@@ -16,6 +16,7 @@ const Activities = (props) => {
     navigate,
     setEditActivityName,
     setEditActivityDescription,
+    fetchActivityWithRoutines
   } = props;
 
   const handleSubmit = async (ev) => {
@@ -103,7 +104,7 @@ const Activities = (props) => {
             <Typography variant="h5" color='black'>Description: {activity.description}</Typography>
             <Typography variant="h5" color='black' > Id:{ activity.id}</Typography>
            
-           {isLoggedIn?( <Link to={`/edit-activity/${activity.id}`}>
+           {isLoggedIn?(<><Link to={`/edit-activity/${activity.id}`}>
               <Button
                 type="submit"
                 variant="contained"
@@ -114,8 +115,21 @@ const Activities = (props) => {
                 }}
               >
                 Edit Activity
-              </Button>
-            </Link>):(null)}</Card>
+              </Button> </Link>
+
+<Link to={`/activity-routines/${activity.id}`}> <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  fetchActivityWithRoutines(activity.id);
+                
+                }}
+              >
+                Routines
+              </Button></Link></> 
+
+           ):(null)}</Card>
             {/* <Link to={`/add-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
               </Button></Link> */}  

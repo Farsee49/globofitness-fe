@@ -157,18 +157,18 @@ export const fetchActivities = async () => {
   
   export const getActivityWithRoutines = async (id) => {
     console.log(id)
-    // try {
-    //   const response = await fetch(`${BASE_URL}/activities/${id}/routines`, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   });
-    //   const result = await response.json();
-    //   console.log(result);
-    //   return result
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const response = await fetch(`${BASE_URL}/activities/${id}/routines`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   export const getAddActivity = async (

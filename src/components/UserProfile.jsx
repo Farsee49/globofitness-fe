@@ -40,8 +40,8 @@ const UserProfile = (props) => {
     };
     
     useEffect(()=>{
-      getRoutines()
-      getRoutinesByUsername()
+      getRoutines();
+      getRoutinesByUsername();
      //navigate('/activities')
   },[]);
 
@@ -105,10 +105,7 @@ const UserProfile = (props) => {
          ))}
         </Fragment>
     </Card>
-              {/* <Button  type='submit' variant='contained'size='small'  onClick={() => {
-               setSingleRoutine(userRoutine);
-                navigate(`/edit-routine/${userRoutine.id}`);
-              }}>Edit Routine</Button> */}
+             
 
               <Button  type='submit' variant='contained'size='small'
                onClick={() => {
@@ -128,12 +125,3 @@ const UserProfile = (props) => {
 export default UserProfile;
 
 
-// onClick={() => {
-//   setSingleRoutine(userRoutine);
-//     navigate(`/edit-routine/${userRoutine.id}`);
-//   }}
-
-// onClick={() => {
-//   setRoutineActivity(activity);
-//     navigate(`/routine-activities/${activity.id}`)
-//   }}

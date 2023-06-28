@@ -1,5 +1,5 @@
-import React from "react";
-import { Typography, Button, TextField, Checkbox } from "@mui/material";
+import React, {useEffect} from "react";
+import { Typography, Button, TextField, Checkbox, Card } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { getUpdateActivity } from "../data-requests";
 
@@ -13,10 +13,13 @@ const EditActivity = (props) => {
     setEditActivityName,
     editActivityDescription,
     setEditActivityDescription,
+    fetchActivityWithRoutines,
+    activityRoutines
   } = props;
 
   console.log("editActivityName", editActivityName);
-
+  console.log(activityRoutines)
+  
   const updateActivity = async (ev) => {
     ev.preventDefault();
     console.log(activities);
@@ -33,6 +36,12 @@ const EditActivity = (props) => {
       console.error("problem in updateActivity in EditActivity!", err);
     }
   };
+
+  useEffect(()=>{
+	
+    fetchActivityWithRoutines();
+},[]);
+
   return (
     <>
       <h1>Edit Activity Render</h1>
@@ -61,6 +70,7 @@ const EditActivity = (props) => {
           SUBMIT
         </Button>
       </form>
+
     </>
   );
 };

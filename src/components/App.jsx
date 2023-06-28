@@ -17,13 +17,14 @@ import ActivtyWithRoutines from "./ActivityWithRoutines";
 
 import {
 	getUpdateRoutineActivity,
+  getActivityWithRoutines,
 	routinesByUsername,
 	routinesWithActivity, 
 	fetchActivities,
 	fetchRoutines,
 	getUser,
 	destroyRoutine,
-  getActivityWithRoutines,
+ 
   login
 	 } from "../data-requests";
 
@@ -97,13 +98,14 @@ const navigate = useNavigate();
       console.error("problem in getRoutinesByUsername in App!", err);
     }
   };
-  const activityWithRoutines = async (id) => {
+  const fetchActivityWithRoutines = async (id) => {
     try {
-     
+     console.log(66)
   
-      //const result = await getActivityWithRoutines(id);
+    const result = await getActivityWithRoutines(id);
+     setActivityRoutines(result);
       
-      //console.log(result);
+      console.log(result);
     } catch (err) {
       console.error("problem in activityWithRoutines in App!", err);
     }
@@ -134,39 +136,18 @@ const navigate = useNavigate();
     }
   };
 
-  console.log(tempUser) 
+  
 
-//    useEffect(() => {
-//     Promise.all([
-// 		getRoutines(),
-// 		console.log(9900),
-// 		getActivities(),
-//     	getCurrentUser(),
-//     	getRoutinesByUsername()])
-//       .then(([user,
-//               activities,
-//               routines,
-//               userRoutines]) => {
-//           setUser(user)
-//           setActivities(activities)
-//           setRoutines(routines);
-//           setUserRoutines(userRoutines)
-//       })
-//       .catch ((error) => {
-//         return (
-//           console.error(error)
-//         );
-//       })
 
-//   }, []);
 
 useEffect(()=>{
-  login(tempUser);
+
+  
 	getCurrentUser();
   getRoutinesByUsername();
 	getRoutines();
 	getActivities();
-  activityWithRoutines();
+ // fetchActivityWithRoutines();
   
   }, [token]);
 
@@ -235,6 +216,7 @@ useEffect(()=>{
               setNewActivityName={setNewActivityName}
               newActivityDescription={newActivityDescription}
               setNewActivityDescription={setNewActivityDescription}
+              fetchActivityWithRoutines={fetchActivityWithRoutines}
               routines={routines}
 			        navigate={navigate}
               user={user}
@@ -334,10 +316,12 @@ useEffect(()=>{
             <EditActivity
               activities={activities}
 			        navigate={navigate}
+              activityRoutines={activityRoutines}
               editActivityName={editActivityName}
               setEditActivityName={setEditActivityName}
               editActivityDescription={editActivityDescription}
               setEditActivityDescription={setEditActivityDescription}
+              fetchActivityWithRoutines={fetchActivityWithRoutines}
             />
           }
         />
@@ -383,10 +367,14 @@ useEffect(()=>{
 					singleActivity={singleActivity}
 					setSingleActivity={setSingleActivity}
 					activities={activities}
+          activityRoutines={activityRoutines}
 					navigate={navigate}
 				 />}/>
 
-        {/* <Route path = '/acti' */}
+        <Route path = '/activity-routines/:id'
+         element={<ActivtyWithRoutines 
+          activityRoutines={activityRoutines}
+         />}/>
 
 
 			</Routes>

@@ -87,6 +87,9 @@ const Routines = (props) => {
             <Typography variant="h4" color='black'>Goal: {routine.goal}</Typography>
             <Typography variant="h4" color='black' > Creator:{ routine.creatorName}</Typography>
             <Typography variant="h4" color='black' > Id:{ routine.id}</Typography>
+
+           
+
               <>
                {routine.activities.length > 0 ?( <Typography variant="h5" color='black'>Attached Activities:</Typography>):(null) }
                {routine.activities.map((activity) => (
