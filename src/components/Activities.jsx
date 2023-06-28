@@ -12,6 +12,7 @@ const Activities = (props) => {
     getActivities,
     setActivities,
     activities,
+    isLoggedIn,
     navigate,
     setEditActivityName,
     setEditActivityDescription,
@@ -33,6 +34,10 @@ const Activities = (props) => {
       console.error("problem in the handlesubmit in creating a activity!", err);
     }
   };
+
+  useEffect(()=>{
+		getActivities();
+},[]);
 
   //     Promise.all([
   //         //getRoutines(),
@@ -59,6 +64,7 @@ const Activities = (props) => {
   //   }, []);
   return (
     <>
+      {isLoggedIn?(<Fragment>
       <h1>Activities Render</h1>
       <h2>Create a new Activity</h2>
       <form onSubmit={handleSubmit}>
@@ -87,17 +93,17 @@ const Activities = (props) => {
         <Button type="submit" variant="contained" size="small">
           SUBMIT
         </Button>
-      </form>
+      </form></Fragment>):(null)}
       <>
         {activities.map((activity) => (
           <Fragment key={activity.id}>
           
-            <Card style={{backgroundColor: "purple", border: "5px solid black" }}>
+          <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px',overflow: 'auto', height: '200px', margin: '8px'}}>
             <Typography variant="h5" color='black'>Name: {activity.name}</Typography>
             <Typography variant="h5" color='black'>Description: {activity.description}</Typography>
             <Typography variant="h5" color='black' > Id:{ activity.id}</Typography>
-
-            <Link to={`/edit-activity/${activity.id}`}>
+           
+           {isLoggedIn?( <Link to={`/edit-activity/${activity.id}`}>
               <Button
                 type="submit"
                 variant="contained"
@@ -109,7 +115,7 @@ const Activities = (props) => {
               >
                 Edit Activity
               </Button>
-            </Link></Card>
+            </Link>):(null)}</Card>
             {/* <Link to={`/add-activity/${activity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
               </Button></Link> */}  

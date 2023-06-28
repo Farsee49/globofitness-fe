@@ -54,7 +54,7 @@ const SingleRoutine = (props) => {
         <>
         <Fragment>
          <h1>SingleRoutine Render</h1>
-        <Card style={{backgroundColor: "purple", border: "5px solid black" }}>
+         <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '400px', margin: '8px'}}>
             <Typography variant="h5" color='black'> Name: {singleRoutine.name}</Typography>
             <Typography variant="h5" color='black'> Creator: {singleRoutine.creatorName}</Typography>
             <Typography variant="h5" color='black'> Goal: {singleRoutine.goal}</Typography>
@@ -70,19 +70,19 @@ const SingleRoutine = (props) => {
         </Card>
     
               <Link to={`/add-activity/${singleRoutine.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add Activity
+              <Button  type='submit' variant='contained'size='small' >Add a GLOBO Activity
               </Button></Link>
 
             <Button  type='submit' variant='contained'size='small'  onClick={() => {
               setSingleRoutine(singleRoutine);
               navigate(`/edit-routine/${singleRoutine.id}`);
-                      }}>Edit Routine
+                      }}>Update GLOBO Routine
             </Button>
 
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
     destroyRoutine(id)
     //navigate('/userprofile');
-              }}>Delete Routine</Button></Fragment>
+              }}>Trash Routine</Button></Fragment>
 
       
      

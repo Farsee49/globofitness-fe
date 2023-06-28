@@ -1,7 +1,7 @@
 import React, {useEffect,Fragment} from "react";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams, useNavigate} from "react-router-dom";
-import { getAddActivity } from "../data-requests";
+import { getActivityWithRoutines, getAddActivity } from "../data-requests";
 
 
 const AddActivity = (props) => {
@@ -11,6 +11,7 @@ const AddActivity = (props) => {
         navigate,
         activities,
         addActivityId,
+        getActivities,
         setAddActivityId,
         addActivityCount,
         setAddActivityCount,
@@ -32,7 +33,7 @@ const AddActivity = (props) => {
         }
       };
       useEffect(()=>{
-        
+        getActivities();
     },[]);
     return(
         <>
@@ -65,8 +66,7 @@ const AddActivity = (props) => {
               <Typography variant="h5" color='black' > Name:{ activity.name}</Typography>
               <Typography variant="h6" color='black' > Description:  { activity.description}</Typography>
               <Typography variant="h6" color='black' > ID:  { activity.id}</Typography>
-              </Fragment>
-    
+            </Fragment>
             ))}</Typography>
         </>
     )

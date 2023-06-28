@@ -8,6 +8,8 @@ const UserProfile = (props) => {
   console.log(id)
     const {
     user,
+    tempUser,
+    login,
     token,
     navigate,
     isLoggedIn,
@@ -42,10 +44,11 @@ const UserProfile = (props) => {
       getRoutinesByUsername()
      //navigate('/activities')
   },[]);
+
     return(
-    
     <>
-    <h1>Create Routines</h1>
+          <Typography sx={{ fontSize: 30 }} color="purple"
+            gutterBottom>Create A GLOBO Routine</Typography>
       <form onSubmit={createNewRoutine}>
         <TextField
           id="filled-basic"
@@ -71,51 +74,52 @@ const UserProfile = (props) => {
           SUBMIT
         </Button>
       </form>
-    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom><h1>Render User Profile</h1></Typography>
-    <Typography sx={{ fontSize: 20 }} color="blue" gutterBottom> <h1>{user.username}'s Globo Profile</h1></Typography>
-    <ul>
+    
+    <Typography sx={{ fontSize: 30 }} color="blue" gutterBottom> {user.username}'s Globo Profile</Typography>
+    <Fragment>
         {
          userRoutines && userRoutines.map((userRoutine) =>(
-          <Typography key={userRoutine.id}> 
-          <Card style={{backgroundColor: "purple", border: "5px solid black" }}>
-            <Typography  variant="h4" color='black' > Id: {userRoutine.id}</Typography>
+            <Typography key={userRoutine.id}> 
+    <Card style={{backgroundColor: "purple", border: "5px solid black",
+      width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
             <Typography variant="h4" color='black'>Name: {userRoutine.name}</Typography>
+            <Typography  variant="h4" color='black' > Id: {userRoutine.id}</Typography>
             <Typography variant="h4" color='black'>Goal: {userRoutine.goal}</Typography>
             <Typography variant="h4" color='black'>Creator: {userRoutine.creatorName}</Typography>
             <Typography variant="h4" color='black'>CreatorId: {userRoutine.creatorId}</Typography>
             {userRoutine.activities.length > 0 ?( <Typography variant="h5" color='black'>Attached Activities:</Typography>):(null) }
-            <> {userRoutine.activities.map((activity) =>(
-             <Fragment key={activity.id}>
-             <Typography variant="h6" color='black'>Name: {activity.name}</Typography>
-                 <Typography variant="h7" color='black'>Description: {activity.description}</Typography>
+        <Fragment> {userRoutine.activities.map((activity) =>(
+          <Fragment key={activity.id}>{console.log(activity)}
+            <Typography variant="h6" color='black'>Name: {activity.name}</Typography>
+            <Typography variant="h7" color='black'>Description: {activity.description}</Typography>
                   <></>
-                 <Typography variant="h7" color='black'>Count: {activity.count}</Typography>
-              
-
-                 <Typography variant="h7" color='black'>ID: {activity.id}</Typography>
-
-
-                 <Typography variant="h7" color='black'>Routine Activity ID: {activity.routineActivityId}</Typography>
-              <p>Activity Id: {activity.routineActivityId}</p>
-              </Fragment>
-
-            ))}</>
-            
+            <Typography variant="h7" color='black'>Count: {activity.count}</Typography>
+            <Typography variant="h7" color='black'>ID: {activity.id}</Typography>
+            <Typography variant="h7" color='black'>DuraTION: {activity.routineActivityId}</Typography>
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
-  setSingleRoutine(userRoutine);
-    navigate(`/edit-routine/${userRoutine.id}`);
-    }}>Edit Routine</Button>
-              
+                setRoutineActivity(activity);
+                navigate(`/routine-activities/${activity.routineActivityId}`);
+                }}>Edit Activity
+              </Button>   
+          </Fragment>
+         ))}
+        </Fragment>
+    </Card>
+              {/* <Button  type='submit' variant='contained'size='small'  onClick={() => {
+               setSingleRoutine(userRoutine);
+                navigate(`/edit-routine/${userRoutine.id}`);
+              }}>Edit Routine</Button> */}
+
               <Button  type='submit' variant='contained'size='small'
-                onClick={() => {
+               onClick={() => {
                 setSingleRoutine(userRoutine);
-                  navigate(`/single-routine/${userRoutine.id}`);
-                }}
-              >
-                {userRoutine.name}
-              </Button></Card>
+               navigate(`/single-routine/${userRoutine.id}`);
+              }}>
+            
+                Edit A Routine
+              </Button>
           </Typography>))
-        } </ul>
+        } </Fragment>
     </>
 
   )

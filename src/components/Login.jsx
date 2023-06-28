@@ -9,14 +9,16 @@ function Login ({
   setUsername,
   setPassword,
   setIsLoggedIn,
+  setTempUser,
   isLoggedIn
   }) {
 
-    async function handleSubmit(ev) {
-    
+    async function userLogin(ev) {
+    try{
       ev.preventDefault()
       //console.log(9900)
       const user = {username, password}
+      setTempUser(user)
       const result = await login(user);
       console.log(result)
       if(!result.error) {
@@ -29,14 +31,17 @@ function Login ({
           console.log(isLoggedIn)
           window.localStorage.setItem('token', result.token);
           navigate('/activities');
-      }; 
+      };
+     }catch(err){
+      console.error('problem in userLogin in Login!', err)
+     }
     };
 
   return(
 		<>
 			<h1>Login Render</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={userLogin}>
         <TextField id="filled-basic"  variant="standard"
             type ='text'
             placeholder="UserName"

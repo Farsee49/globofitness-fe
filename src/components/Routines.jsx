@@ -46,6 +46,7 @@ const Routines = (props) => {
 
   return (
     <>
+    {isLoggedIn?(<Fragment>
       <h1>Create Routines</h1>
       <form onSubmit={createNewRoutine}>
         <TextField
@@ -72,6 +73,7 @@ const Routines = (props) => {
           SUBMIT
         </Button>
       </form>
+    </Fragment>):(null)}
 
       <h2>Routines</h2>
       <ol>
@@ -79,7 +81,7 @@ const Routines = (props) => {
           routines.map((routine) => (
             <Fragment key={routine.id}>
               
-              <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '400px', margin: '8px'}}>
+              <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
             <Typography variant="h4" color='black' > Name:{ routine.name}</Typography>
             <Typography variant="h4" color='black'>CreatorId: {routine.creatorId}</Typography>
             <Typography variant="h4" color='black'>Goal: {routine.goal}</Typography>

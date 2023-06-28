@@ -1,7 +1,7 @@
 import React from "react";
 import  { Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
-import {getSingleActivityWithRoutines, getUpdateRoutineActivity} from '../data-requests'
+import {destroyRoutineActivity, getUpdateRoutineActivity} from '../data-requests'
 
 
 
@@ -39,13 +39,9 @@ const RoutineActivities = (props) => {
         console.log(routineActivity);
     return(
         <>
-         <h1>Routine Activity Render</h1>
-         <div id="activityCard">
-      <h1>{routineActivity.name}</h1> 
-       <p>Count: {routineActivity.count}</p>
-      <p>Duration {routineActivity.duration}</p>
-      <p>Activity Id: {routineActivity.id}</p>
-      </div>
+         
+         <Typography  variant="h4" color='black' >Edit Routine Activity </Typography>
+        
 
       <Link to={`/add-activity/${routineActivity.id}`} >
               <Button  type='submit' variant='contained'size='small' >Add to Routine
@@ -67,6 +63,18 @@ const RoutineActivities = (props) => {
                 
                  <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
              </form>
+
+             <Typography  variant="h4" color='black' > Name: {routineActivity.name}</Typography>
+             <Typography  variant="h4" color='black' > Id: {routineActivity.id}</Typography>
+            <Typography variant="h4" color='black'>Count: {routineActivity.count}</Typography>
+            <Typography variant="h4" color='black'>Duration: {routineActivity.duration}</Typography>
+           
+
+             <Button  type='submit' variant='contained'size='small'  onClick={() => {
+   destroyRoutineActivity(id)
+    console.log(id)
+    //navigate('/userprofile');
+              }}>Delete Activity</Button>
       {/* <ul>
             {
             activities.map((activity) =>(

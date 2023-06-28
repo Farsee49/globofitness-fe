@@ -22,7 +22,9 @@ import {
 	fetchActivities,
 	fetchRoutines,
 	getUser,
-	destroyRoutine
+	destroyRoutine,
+  getActivityWithRoutines,
+  login
 	 } from "../data-requests";
 
 
@@ -53,6 +55,8 @@ const [singleActivity, setSingleActivity] = useState([])
 const [activityGoal, setActivityGoal] = useState([]);
 const [activityDuration, setActivityDuration] = useState([]);
 const [activityId, setActivityId] = useState([]);
+const [activityRoutines, setActivityRoutines] = useState([]);
+const [tempUser, setTempUser] = useState([]);
 const navigate = useNavigate();
 
   const tokenCheck = () => {
@@ -93,6 +97,17 @@ const navigate = useNavigate();
       console.error("problem in getRoutinesByUsername in App!", err);
     }
   };
+  const activityWithRoutines = async (id) => {
+    try {
+     
+  
+      //const result = await getActivityWithRoutines(id);
+      
+      //console.log(result);
+    } catch (err) {
+      console.error("problem in activityWithRoutines in App!", err);
+    }
+  };
 
    
    const getCurrentUser = async (token) => {
@@ -119,7 +134,7 @@ const navigate = useNavigate();
     }
   };
 
-   
+  console.log(tempUser) 
 
 //    useEffect(() => {
 //     Promise.all([
@@ -146,12 +161,13 @@ const navigate = useNavigate();
 //   }, []);
 
 useEffect(()=>{
-	
-
+  login(tempUser);
 	getCurrentUser();
+  getRoutinesByUsername();
 	getRoutines();
 	getActivities();
-    getRoutinesByUsername();
+  activityWithRoutines();
+  
   }, [token]);
 
 
@@ -164,7 +180,7 @@ useEffect(()=>{
 
   return (
     <>
-      <h1>Felix ==== GoodBoy</h1>
+     
       <Nav
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
@@ -195,6 +211,7 @@ useEffect(()=>{
             <Login
               username={username}
               password={password}
+              setTempUser={setTempUser}
               setIsLoggedIn={setIsLoggedIn}
               isLoggedIn={isLoggedIn}
               setUsername={setUsername}
@@ -211,14 +228,13 @@ useEffect(()=>{
           element={
             <Activities
               activities={activities}
+              isLoggedIn={isLoggedIn}
 			        getActivities={getActivities}
               setActivities={setActivities}
               newActivityName={newActivityName}
               setNewActivityName={setNewActivityName}
               newActivityDescription={newActivityDescription}
               setNewActivityDescription={setNewActivityDescription}
-              //getActivities={getActivities}
-              isLoggedIn={isLoggedIn}
               routines={routines}
 			        navigate={navigate}
               user={user}
@@ -274,10 +290,12 @@ useEffect(()=>{
           element={
             <UserProfile
               isLoggedIn={isLoggedIn}
+              tempUser={tempUser}
+              login={login}
               setIsLoggedIn={setIsLoggedIn}
               getRoutines={getRoutines}
               routineActivity={routineActivity}
-			  newRoutineGoal={newRoutineGoal}
+			        newRoutineGoal={newRoutineGoal}
               setNewRoutineGoal={setNewRoutineGoal}
               newRoutineName={newRoutineName}
               setNewRoutineName={setNewRoutineName}
@@ -315,7 +333,7 @@ useEffect(()=>{
           element={
             <EditActivity
               activities={activities}
-			  navigate={navigate}
+			        navigate={navigate}
               editActivityName={editActivityName}
               setEditActivityName={setEditActivityName}
               editActivityDescription={editActivityDescription}
@@ -324,12 +342,12 @@ useEffect(()=>{
           }
         />
 
-        <Route
-          path="/add-activity/:id"
+        <Route path="/add-activity/:id"
           element={
             <AddActivity
               activities={activities}
               navigate={navigate}
+              getActivities={getActivities}
               addActivityId={addActivityId}
               setAddActivityId={setAddActivityId}
               addActivityCount={addActivityCount}
@@ -341,30 +359,34 @@ useEffect(()=>{
         />
 
 				<Route path = '/single-routine/:id'
-				 element={<SingleRoutine
-				    activities={activities}
-					deleteRoutine={deleteRoutine}
-					singleRoutine={singleRoutine} 
-					getRoutines={getRoutines}
-					getCurrentUser={getCurrentUser}
-					getRoutinesByUsername={getRoutinesByUsername}
-					setSingleRoutine={setSingleRoutine}
-					setRoutineActivity={setRoutineActivity}
-					activityGoal={activityGoal}
-					setActivityGoal={setActivityGoal}
-					activityDuration={activityDuration}
-					setActivityDuration={setActivityDuration}
-					userRoutines={userRoutines}
-					navigate={navigate}
+				 element={
+         <SingleRoutine
+				   activities={activities}
+					 deleteRoutine={deleteRoutine}
+					 singleRoutine={singleRoutine} 
+					 getRoutines={getRoutines}
+					 getCurrentUser={getCurrentUser}
+					 getRoutinesByUsername={getRoutinesByUsername}
+					 setSingleRoutine={setSingleRoutine}
+					 setRoutineActivity={setRoutineActivity}
+					 activityGoal={activityGoal}
+					 setActivityGoal={setActivityGoal}
+					 activityDuration={activityDuration}
+					 setActivityDuration={setActivityDuration}
+					 userRoutines={userRoutines}
+					 navigate={navigate}
 				 />}/>
 				
 				<Route path = '/single-activity/:id'
-				 element={ <SingleActivity 
+				 element={ 
+         <SingleActivity 
 					singleActivity={singleActivity}
 					setSingleActivity={setSingleActivity}
 					activities={activities}
 					navigate={navigate}
 				 />}/>
+
+        {/* <Route path = '/acti' */}
 
 
 			</Routes>
