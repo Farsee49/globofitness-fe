@@ -1,7 +1,7 @@
 import React, {useEffect,Fragment} from "react";
-import  { Card,Typography,Button,TextField,Checkbox } from '@mui/material';
-import { Link, useParams, useNavigate} from "react-router-dom";
-import { getActivityWithRoutines, getAddActivity } from "../data-requests";
+import  { Card,Typography,Button,TextField } from '@mui/material';
+import { useParams, } from "react-router-dom";
+import { getAddActivity } from "../data-requests";
 
 
 const AddActivity = (props) => {
@@ -37,7 +37,9 @@ const AddActivity = (props) => {
     },[]);
     return(
         <>
-         <h1>Render Add Activity</h1>
+        <br></br>
+    <Typography variant="h4" color='black' >ADD ACTIVITIES TO YOUR GLOBO ROUTINE</Typography>
+    <br></br>
          <form onSubmit={addActivity}>
          <TextField id="filled-basic"  variant="standard"
          type="text"
@@ -59,7 +61,9 @@ const AddActivity = (props) => {
          />
          <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
      </form>
+     <br></br>
       <Typography variant="h4" color='black'>Activities:</Typography>
+      <br></br>
       <Card style={{backgroundColor: "purple", border: "5px solid black",
       width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
             <Typography variant="h5" color='black'>{activities.map((activity) =>(

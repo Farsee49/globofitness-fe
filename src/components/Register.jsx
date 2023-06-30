@@ -32,20 +32,16 @@ export default function Register({
           navigate("/activities");
         }, 1000);
       }
-
-      // console.log("pass success");
-      // setToken(result.token);
-      // window.localStorage.setItem("token", result.token);
-      // setTimeout(() => {
-      //   navigate("/login");
-      // }, 1000);
+      
     } else if (result.error) {
       setError(result.error);
     }
   }
   return (
     <>
-      <h1>Register</h1>
+    <br></br>
+     <Typography variant="h4" color='black'>REGISTER YOUR GLOBO EXPERIENCE</Typography>
+      <br></br>
       <form onSubmit={handleSubmit}>
         <TextField
           id="filled-basic"

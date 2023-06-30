@@ -1,7 +1,7 @@
 import React, {useEffect, Fragment} from "react";
-import {routinesByUsername, createRoutine} from '../data-requests'
+import { createRoutine} from '../data-requests'
 import  { Button, Card, Typography,TextField } from '@mui/material';
-import { Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const UserProfile = (props) => {
   const { id } = useParams();
@@ -9,11 +9,7 @@ const UserProfile = (props) => {
     const {
     user,
     navigate,
-    isLoggedIn,
-    editRoutine,
-    setEditRoutine,
     userRoutines,
-    setUserRoutines,
     setSingleRoutine,
     getRoutines,
     newRoutineName,
@@ -76,7 +72,6 @@ const UserProfile = (props) => {
           SUBMIT
         </Button>
       </form>
-    
     <Typography sx={{ fontSize: 30 }} color="blue" gutterBottom> {user.username}'s Globo Profile</Typography>
     <Fragment>
         {
@@ -94,7 +89,6 @@ const UserProfile = (props) => {
         <br></br><Fragment> {userRoutine.activities.map((activity) =>(
           <Fragment key={activity.id}>{console.log(activity)}
             <Typography variant="h6" color='black'>Name: {activity.name}</Typography>
-           
             <Typography variant="h7" color='black'>Description: {activity.description}</Typography>
             <br></br>
             <Typography variant="h7" color='black'>Count: {activity.count}</Typography>
@@ -111,9 +105,7 @@ const UserProfile = (props) => {
          ))}
         </Fragment>
     </Card>
-             
-
-              <Button  type='submit' variant='contained'size='small'
+            <Button  type='submit' variant='contained'size='small'
                onClick={() => {
                 setSingleRoutine(userRoutine);
                navigate(`/single-routine/${userRoutine.id}`);

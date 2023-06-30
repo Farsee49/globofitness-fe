@@ -11,14 +11,14 @@ const Nav = (props) => {
     setIsLoggedIn} = props
 
     async function logout(){
-
-      
+       try{
        setIsLoggedIn(false);
-      
          window.localStorage.removeItem('token')
         console.log(isLoggedIn)
         navigate('/login')
-      
+       }catch(err){
+        console.error('problem in login!', err)
+      }
        
     
         };

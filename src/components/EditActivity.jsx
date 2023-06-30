@@ -38,13 +38,15 @@ const EditActivity = (props) => {
   };
 
   useEffect(()=>{
-
     fetchActivityWithRoutines();
 },[]);
 
   return (
-    <>
-      <h1>Edit Activity Render</h1>
+  <>
+    <br></br>
+    <Typography  variant="h4" color='black'>
+      EDIT A GLOBO ACTIVITY</Typography>
+      <br></br>
       <form onSubmit={updateActivity}>
         <TextField
           id="filled-basic"
@@ -69,13 +71,19 @@ const EditActivity = (props) => {
         <Button type="submit" variant="contained" size="small">
           SUBMIT
         </Button>
-      </form><Card style={{backgroundColor: "purple", border: "5px solid black",
-      width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
-           <Typography  variant="h4" color='black' > Name: {editActivityName}</Typography>
-           <></>
-            <Typography variant="h4" color='black'>Description: {editActivityDescription}</Typography></Card>
-           
-</>
+      </form>
+      <br></br>
+      <Card style={{backgroundColor: "purple", border: "5px solid black",
+         width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
+          <Typography  variant="h4" color='black' >
+             Name: {editActivityName}
+          </Typography>
+           <br></br>
+          <Typography variant="h4" color='black'>
+            Description: {editActivityDescription}
+          </Typography>
+      </Card>
+    </>
     
   );
 };

@@ -33,23 +33,7 @@ const SingleActivity = (props) => {
               setSingleRoutine(singleRoutine);
               navigate(`/edit-routine/${singleRoutine.id}`);
                       }}>User Routines
-            </Button>
-      <ul>
-            {
-        //     activities.map((activity) =>(
-        //     <li key={activity.id} > <div> Id: {activity.id}</div> <div>Name: {activity.name}</div>  
-        //   Description: {activity.description}
-        //   <Link to={`/edit-activity/${activity.id}`} >
-        //       <Button  type='submit' variant='contained'size='small' >Edit Activity
-        //       </Button></Link>
-
-        //       <Link to={`/add-activity/${activity.id}`} >
-        //       <Button  type='submit' variant='contained'size='small' >Add to Routine
-        //       </Button></Link>
-             
-        //   </li>))
-            }
-        </ul>
+               </Button>
         </>
     )
 };

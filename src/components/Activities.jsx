@@ -1,16 +1,17 @@
-import React, { useState, useEffect,Fragment } from "react";
-import { Link, Navigate } from "react-router-dom";
-import { Typography, Button, TextField, Checkbox,Card } from "@mui/material";
-import { createActivity } from "../data-requests";
+import React, { useEffect,Fragment } from "react";
+import { Link, Navigate ,useParams} from "react-router-dom";
+import { Typography, Button, TextField, Card } from "@mui/material";
+import { createActivity} from "../data-requests";
 
 const Activities = (props) => {
+  const { id } = useParams();
+    console.log(id);
   const {
     newActivityDescription,
     setNewActivityDescription,
     setNewActivityName,
     newActivityName,
     getActivities,
-    setActivities,
     activities,
     isLoggedIn,
     navigate,
@@ -24,7 +25,7 @@ const Activities = (props) => {
     getActivities()
     console.log(newActivityName, newActivityDescription);
     try {
-      const result = await createActivity(
+        const result = await createActivity(
         newActivityName,
         newActivityDescription
       );
@@ -40,104 +41,80 @@ const Activities = (props) => {
 		getActivities();
 },[]);
 
-  //     Promise.all([
-  //         //getRoutines(),
-  //         getActivities(),
-  //         //getCurrentUser(),
-  //         //getRoutinesByUsername()
-  //         ])
-  //       .then(([user,
-  //               result,
-  //               activities,
-  //               routines,
-  //               userRoutines]) => {
-  //          // setUser(user)
-  //           setActivities(activities)
-  //           //setRoutines(routines);
-  //          // setUserRoutines(userRoutines)
-  //       })
-  //       .catch ((error) => {
-  //         return (
-  //           console.error(error)
-  //         );
-  //       })
-
-  //   }, []);
   return (
     <>
-      {isLoggedIn?(<Fragment>
-      <Typography variant="h3" color='black'>Create a new GLOBO Activity</Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="filled-basic"
-          variant="standard"
-          type="text"
-          placeholder="Activity Name"
-          value={newActivityName}
-          onChange={(ev) => {
+    <br></br>
+      {isLoggedIn?(
+        <Fragment>
+          <Typography variant="h3" color='black'>Create a new GLOBO Activity</Typography>
+          <form onSubmit={handleSubmit}>
+           <TextField
+            id="filled-basic"
+            variant="standard"
+            type="text"
+            placeholder="Activity Name"
+            value={newActivityName}
+            onChange={(ev) => {
             setNewActivityName(ev.target.value);
-          }}
-        />
-      </form>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="filled"
-          variant="standard"
-          type="text"
-          placeholder="Activity Description"
-          value={newActivityDescription}
-          onChange={(ev) => {
+            }}
+            />
+          </form>
+          <form onSubmit={handleSubmit}>
+            <TextField
+            id="filled"
+            variant="standard"
+            type="text"
+            placeholder="Activity Description"
+            value={newActivityDescription}
+            onChange={(ev) => {
             setNewActivityDescription(ev.target.value);
-          }}
-        />
+            }}
+            />
         <Button type="submit" variant="contained" size="small">
           SUBMIT
         </Button>
-      </form></Fragment>):(null)}
-      <><>
-      </>
+           </form>
+           <br></br>
+      </Fragment>):(null)}
+      <br></br>
       <Typography variant="h3" color='black'> GLOBO ACTIVITIES</Typography>
         {activities.map((activity) => (
           <Fragment key={activity.id}>
-          
           <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px',overflow: 'auto', height: '200px', margin: '8px'}}>
             <Typography variant="h5" color='black'>Name: {activity.name}</Typography>
             <Typography variant="h5" color='black'>Description: {activity.description}</Typography>
             <Typography variant="h5" color='black' > Id:{ activity.id}</Typography>
-           
-           {isLoggedIn?(<><Link to={`/edit-activity/${activity.id}`}>
+           {isLoggedIn?(
+           <>
+            <Link to={`/edit-activity/${activity.id}`}>
               <Button
                 type="submit"
                 variant="contained"
                 size="small"
                 onClick={() => {
                   setEditActivityName(activity.name),
-                    setEditActivityDescription(activity.description);
-                }}
-              >
+                    setEditActivityDescription(activity.description);}}>
                 Edit Activity
-              </Button> </Link>
+              </Button> 
+              </Link>
 
-<Link to={`/activity-routines/${activity.id}`}> <Button
+               <Link to={`/activity-routines/${activity.id}`}>
+                 <Button
                 type="submit"
                 variant="contained"
                 size="small"
                 onClick={() => {
-                  fetchActivityWithRoutines(activity.id);
-                
-                }}
-              >
+                 fetchActivityWithRoutines(activity.id);}}>
                 Routines
-              </Button></Link></> 
-
-           ):(null)}</Card>
-            {/* <Link to={`/add-activity/${activity.id}`} >
-              <Button  type='submit' variant='contained'size='small' >Add to Routine
-              </Button></Link> */}  
+              </Button>
+              </Link>
+            </> 
+          ):(null)}
+         </Card>
           {" "}</Fragment>
         ))}
       </>
-    </>
+  
   );
 };
 

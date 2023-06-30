@@ -15,7 +15,6 @@ function Login({
   async function userLogin(ev) {
     try {
       ev.preventDefault();
-      //console.log(9900)
       const user = { username, password };
       setTempUser(user);
       const result = await login(user);
@@ -40,8 +39,9 @@ function Login({
 
   return (
     <>
-      <h1>Login Render</h1>
-
+    <br></br>
+     <Typography variant="h4" color='black'>GLOBO LOGIN</Typography>
+     <br></br>
       <form onSubmit={userLogin}>
         <TextField
           id="filled-basic"
