@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Button, TextField, Checkbox } from "@mui/material";
-import { registerUser } from "../data-requests";
+import { registerUser, login } from "../data-requests";
 
 export default function Register({
   setToken,
@@ -9,6 +9,8 @@ export default function Register({
   password,
   setUsername,
   setPassword,
+  setIsLoggedIn,
+  isLoggedIn,
 }) {
   const [error, setError] = useState("");
 
@@ -19,10 +21,24 @@ export default function Register({
     const result = await registerUser(user);
     console.log(result.token);
     if (!result.error) {
-      console.log("pass success");
-      setToken(result.token);
-      window.localStorage.setItem("token", result.token);
-      navigate("/login");
+      const loginResult = await login(user);
+      if (!loginResult.error) {
+        setIsLoggedIn(true);
+        setUsername("");
+        setPassword("");
+        setToken(loginResult.token);
+        window.localStorage.setItem("token", result.token);
+        setTimeout(() => {
+          navigate("/activities");
+        }, 1000);
+      }
+
+      // console.log("pass success");
+      // setToken(result.token);
+      // window.localStorage.setItem("token", result.token);
+      // setTimeout(() => {
+      //   navigate("/login");
+      // }, 1000);
     } else if (result.error) {
       setError(result.error);
     }
@@ -41,14 +57,15 @@ export default function Register({
         <TextField
           id="filled-basic"
           variant="standard"
-          type="text"
+          type="password"
           placeholder="PassWord"
           onChange={(ev) => setPassword(ev.target.value)}
         />
         <Button type="submit" variant="contained" size="small">
           SUBMIT
         </Button>
-        {error ? <p>{error}</p> : null}
+        {error ? <h2>{error}</h2> : null}
+        {isLoggedIn ? <h2>Registration Successful!</h2> : null}
       </form>
     </>
   );

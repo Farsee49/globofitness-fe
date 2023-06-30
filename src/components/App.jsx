@@ -14,52 +14,47 @@ import SingleRoutine from "./SingleRoutine";
 import SingleActivity from "./Single Activity";
 import ActivtyWithRoutines from "./ActivityWithRoutines";
 
-
 import {
-	getUpdateRoutineActivity,
+  getUpdateRoutineActivity,
   getActivityWithRoutines,
-	routinesByUsername,
-	routinesWithActivity, 
-	fetchActivities,
-	fetchRoutines,
-	getUser,
-	destroyRoutine,
- 
-  login
-	 } from "../data-requests";
-
-
+  routinesByUsername,
+  routinesWithActivity,
+  fetchActivities,
+  fetchRoutines,
+  getUser,
+  destroyRoutine,
+  login,
+} from "../data-requests";
 
 const App = () => {
-	
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState('');
-const [isLoggedIn, setIsLoggedIn] = useState(false);   
-const [user, setUser] = useState({});
-const [token, setToken] = useState('');
-const [activities, setActivities] = useState([]);
-const [routines, setRoutines] = useState([]);
-const [userRoutines, setUserRoutines] = useState([]);
-const [routineActivity, setRoutineActivity] = useState([]);
-const [editRoutineName, setEditRoutineName] = useState([]);
-const [editRoutineGoal, setEditRoutineGoal] = useState([]);
-const [newRoutineName, setNewRoutineName] = useState([]);
-const [newRoutineGoal, setNewRoutineGoal] = useState([]);
-const [newActivityName, setNewActivityName] = useState([]);
-const [newActivityDescription, setNewActivityDescription] = useState([]);
-const [editActivityName, setEditActivityName] = useState([]);
-const [editActivityDescription, setEditActivityDescription] = useState([]);
-const [singleRoutine, setSingleRoutine] = useState([]);
-const [addActivityCount, setAddActivityCount] = useState([]);
-const [addActivityDuration, setAddActivityDuration] = useState([]);
-const [addActivityId, setAddActivityId] = useState([]);
-const [singleActivity, setSingleActivity] = useState([])
-const [activityGoal, setActivityGoal] = useState([]);
-const [activityDuration, setActivityDuration] = useState([]);
-const [activityId, setActivityId] = useState([]);
-const [activityRoutines, setActivityRoutines] = useState([]);
-const [tempUser, setTempUser] = useState([]);
-const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState("");
+  const [activities, setActivities] = useState([]);
+  const [routines, setRoutines] = useState([]);
+  const [userRoutines, setUserRoutines] = useState([]);
+  const [routineActivity, setRoutineActivity] = useState([]);
+  const [editRoutineName, setEditRoutineName] = useState([]);
+  const [editRoutineGoal, setEditRoutineGoal] = useState([]);
+  const [newRoutineName, setNewRoutineName] = useState([]);
+  const [newRoutineGoal, setNewRoutineGoal] = useState([]);
+  const [newActivityName, setNewActivityName] = useState([]);
+  const [newActivityDescription, setNewActivityDescription] = useState([]);
+  const [editActivityName, setEditActivityName] = useState([]);
+  const [editActivityDescription, setEditActivityDescription] = useState([]);
+  const [singleRoutine, setSingleRoutine] = useState([]);
+  const [addActivityCount, setAddActivityCount] = useState([]);
+  const [addActivityDuration, setAddActivityDuration] = useState([]);
+  const [addActivityId, setAddActivityId] = useState([]);
+  const [singleActivity, setSingleActivity] = useState([]);
+  const [activityGoal, setActivityGoal] = useState([]);
+  const [activityDuration, setActivityDuration] = useState([]);
+  const [activityId, setActivityId] = useState([]);
+  const [activityRoutines, setActivityRoutines] = useState([]);
+  const [tempUser, setTempUser] = useState([]);
+  const navigate = useNavigate();
 
   const tokenCheck = () => {
     if (window.localStorage.getItem("token")) {
@@ -101,28 +96,27 @@ const navigate = useNavigate();
   };
   const fetchActivityWithRoutines = async (id) => {
     try {
-     console.log(66)
-  
-    const result = await getActivityWithRoutines(id);
-     setActivityRoutines(result);
-      
+      console.log(66);
+
+      const result = await getActivityWithRoutines(id);
+      setActivityRoutines(result);
+
       console.log(result);
     } catch (err) {
       console.error("problem in activityWithRoutines in App!", err);
     }
   };
 
-   
-   const getCurrentUser = async (token) => {
-	try{
-	const result = await getUser(token);
-    console.log(result);
-	setUser(result)
-	console.log(user)
-    }catch(err){
-		console.error('problem at getUser in App!', err)
-	}
-   };
+  const getCurrentUser = async (token) => {
+    try {
+      const result = await getUser(token);
+      console.log(result);
+      setUser(result);
+      console.log(user);
+    } catch (err) {
+      console.error("problem at getUser in App!", err);
+    }
+  };
 
   const deleteRoutine = async () => {
     console.log(id);
@@ -137,29 +131,20 @@ const navigate = useNavigate();
     }
   };
 
-
-useEffect(()=>{
-
-  
-	getCurrentUser();
-  getRoutinesByUsername();
-	getRoutines();
-	getActivities();
- // fetchActivityWithRoutines();
-  
+  useEffect(() => {
+    getCurrentUser();
+    getRoutinesByUsername();
+    getRoutines();
+    getActivities();
+    // fetchActivityWithRoutines();
   }, [token]);
 
-
-    useEffect(()=>{
-		
-        tokenCheck();
-    },[,token]);
-
-   
+  useEffect(() => {
+    tokenCheck();
+  }, [, token]);
 
   return (
     <>
-     
       <Nav
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
@@ -180,6 +165,8 @@ useEffect(()=>{
               setPassword={setPassword}
               navigate={navigate}
               setToken={setToken}
+              setIsLoggedIn={setIsLoggedIn}
+              isLoggedIn={isLoggedIn}
             />
           }
         />
@@ -208,7 +195,7 @@ useEffect(()=>{
             <Activities
               activities={activities}
               isLoggedIn={isLoggedIn}
-			        getActivities={getActivities}
+              getActivities={getActivities}
               setActivities={setActivities}
               newActivityName={newActivityName}
               setNewActivityName={setNewActivityName}
@@ -216,7 +203,7 @@ useEffect(()=>{
               setNewActivityDescription={setNewActivityDescription}
               fetchActivityWithRoutines={fetchActivityWithRoutines}
               routines={routines}
-			        navigate={navigate}
+              navigate={navigate}
               user={user}
               setEditActivityDescription={setEditActivityDescription}
               setEditActivityName={setEditActivityName}
@@ -250,7 +237,7 @@ useEffect(()=>{
           path="/routine-activities/:id"
           element={
             <RoutineActivities
-            navigate={navigate}
+              navigate={navigate}
               routines={routines}
               activities={activities}
               isLoggedIn={isLoggedIn}
@@ -277,7 +264,7 @@ useEffect(()=>{
               setIsLoggedIn={setIsLoggedIn}
               getRoutines={getRoutines}
               routineActivity={routineActivity}
-			        newRoutineGoal={newRoutineGoal}
+              newRoutineGoal={newRoutineGoal}
               setNewRoutineGoal={setNewRoutineGoal}
               newRoutineName={newRoutineName}
               setNewRoutineName={setNewRoutineName}
@@ -315,7 +302,7 @@ useEffect(()=>{
           element={
             <EditActivity
               activities={activities}
-			        navigate={navigate}
+              navigate={navigate}
               activityRoutines={activityRoutines}
               editActivityName={editActivityName}
               setEditActivityName={setEditActivityName}
@@ -326,7 +313,8 @@ useEffect(()=>{
           }
         />
 
-        <Route path="/add-activity/:id"
+        <Route
+          path="/add-activity/:id"
           element={
             <AddActivity
               activities={activities}
@@ -342,46 +330,53 @@ useEffect(()=>{
           }
         />
 
-				<Route path = '/single-routine/:id'
-				 element={
-         <SingleRoutine
-				   activities={activities}
-					 deleteRoutine={deleteRoutine}
-					 singleRoutine={singleRoutine} 
-					 getRoutines={getRoutines}
-					 getCurrentUser={getCurrentUser}
-					 getRoutinesByUsername={getRoutinesByUsername}
-					 setSingleRoutine={setSingleRoutine}
-					 setRoutineActivity={setRoutineActivity}
-					 activityGoal={activityGoal}
-					 setActivityGoal={setActivityGoal}
-					 activityDuration={activityDuration}
-					 setActivityDuration={setActivityDuration}
-					 userRoutines={userRoutines}
-					 navigate={navigate}
-				 />}/>
-				
-				<Route path = '/single-activity/:id'
-				 element={ 
-         <SingleActivity 
-					singleActivity={singleActivity}
-					setSingleActivity={setSingleActivity}
-					activities={activities}
-          activityRoutines={activityRoutines}
-					navigate={navigate}
-				 />}/>
+        <Route
+          path="/single-routine/:id"
+          element={
+            <SingleRoutine
+              activities={activities}
+              deleteRoutine={deleteRoutine}
+              singleRoutine={singleRoutine}
+              getRoutines={getRoutines}
+              getCurrentUser={getCurrentUser}
+              getRoutinesByUsername={getRoutinesByUsername}
+              setSingleRoutine={setSingleRoutine}
+              setRoutineActivity={setRoutineActivity}
+              activityGoal={activityGoal}
+              setActivityGoal={setActivityGoal}
+              activityDuration={activityDuration}
+              setActivityDuration={setActivityDuration}
+              userRoutines={userRoutines}
+              navigate={navigate}
+            />
+          }
+        />
 
-        <Route path = '/activity-routines/:id'
-         element={<ActivtyWithRoutines 
-          fetchActivityWithRoutines={fetchActivityWithRoutines}
-          activityRoutines={activityRoutines}
-         />}/>
+        <Route
+          path="/single-activity/:id"
+          element={
+            <SingleActivity
+              singleActivity={singleActivity}
+              setSingleActivity={setSingleActivity}
+              activities={activities}
+              activityRoutines={activityRoutines}
+              navigate={navigate}
+            />
+          }
+        />
 
-
-
-			</Routes>
-		</>
-    )
+        <Route
+          path="/activity-routines/:id"
+          element={
+            <ActivtyWithRoutines
+              fetchActivityWithRoutines={fetchActivityWithRoutines}
+              activityRoutines={activityRoutines}
+            />
+          }
+        />
+      </Routes>
+    </>
+  );
 };
 
 export default App;

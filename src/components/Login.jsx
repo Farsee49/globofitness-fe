@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import  { Typography,Button,TextField,Checkbox } from '@mui/material';
-import {login} from '../data-requests'
-function Login ({
+import React, { useState } from "react";
+import { Typography, Button, TextField, Checkbox } from "@mui/material";
+import { login } from "../data-requests";
+function Login({
   setToken,
   navigate,
   username,
@@ -10,52 +10,60 @@ function Login ({
   setPassword,
   setIsLoggedIn,
   setTempUser,
-  isLoggedIn
-  }) {
-
-    async function userLogin(ev) {
-    try{
-      ev.preventDefault()
+  isLoggedIn,
+}) {
+  async function userLogin(ev) {
+    try {
+      ev.preventDefault();
       //console.log(9900)
-      const user = {username, password}
-      setTempUser(user)
+      const user = { username, password };
+      setTempUser(user);
       const result = await login(user);
-      console.log(result)
-      if(!result.error) {
-        console.log('passed Login Error')
-          setIsLoggedIn(true)
-          setUsername('');
-          setPassword('');
-          setToken(result.token);
-          console.log(result.token);
-          console.log(isLoggedIn)
-          window.localStorage.setItem('token', result.token);
-          navigate('/activities');
-      };
-     }catch(err){
-      console.error('problem in userLogin in Login!', err)
-     }
-    };
+      console.log(result);
+      if (!result.error) {
+        console.log("passed Login Error");
+        setIsLoggedIn(true);
+        setUsername("");
+        setPassword("");
+        setToken(result.token);
+        console.log(result.token);
+        console.log(isLoggedIn);
+        window.localStorage.setItem("token", result.token);
+        setTimeout(() => {
+          navigate("/activities");
+        }, 1000);
+      }
+    } catch (err) {
+      console.error("problem in userLogin in Login!", err);
+    }
+  }
 
-  return(
-		<>
-			<h1>Login Render</h1>
+  return (
+    <>
+      <h1>Login Render</h1>
 
       <form onSubmit={userLogin}>
-        <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="UserName"
-            onChange={(ev)=> setUsername(ev.target.value)}
-          />
-          <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="PassWord"
-            onChange={(ev)=> setPassword(ev.target.value)}
-          />
-             <Button  type='submit' variant='contained'size='small'>Login</Button>
-        </form>
-		</>
-	)
-};
+        <TextField
+          id="filled-basic"
+          variant="standard"
+          type="text"
+          placeholder="UserName"
+          onChange={(ev) => setUsername(ev.target.value)}
+        />
+        <TextField
+          id="filled-basic"
+          variant="standard"
+          type="password"
+          placeholder="PassWord"
+          onChange={(ev) => setPassword(ev.target.value)}
+        />
+        <Button type="submit" variant="contained" size="small">
+          Login
+        </Button>
+      </form>
+      {isLoggedIn ? <h2>Log In Successful!</h2> : null}
+    </>
+  );
+}
 
 export default Login;
