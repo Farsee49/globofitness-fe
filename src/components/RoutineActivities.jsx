@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import  { Typography,Button,TextField,Checkbox } from '@mui/material';
+import  { Card,Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 import {destroyRoutineActivity, getUpdateRoutineActivity} from '../data-requests'
 
@@ -30,7 +30,7 @@ const RoutineActivities = (props) => {
     try{ //console.log(id) 
     const result = await getUpdateRoutineActivity(id,activityGoal,activityDuration)
       //console.log(result)
-      //navigate('/userprofile');
+      navigate('/userprofile');
     }catch(err){
       console.error('problem in updateRoutineActivity in App!', err);
     }
@@ -39,7 +39,10 @@ const RoutineActivities = (props) => {
         console.log(routineActivity);
     return(
         <>
-         
+         <Card style={{backgroundColor: "purple", 
+         border: "5px solid black", 
+         width: '600px', height: '400px',
+         margin: '8px'}}>
          <Typography  variant="h4" color='black' >Edit Routine Activity </Typography>
         
 
@@ -73,8 +76,8 @@ const RoutineActivities = (props) => {
              <Button  type='submit' variant='contained'size='small'  onClick={() => {
    destroyRoutineActivity(id)
     console.log(id)
-    //navigate('/userprofile');
-              }}>Delete Activity</Button>
+    navigate('/userprofile');
+              }}>Delete Activity</Button></Card>
       {/* <ul>
             {
             activities.map((activity) =>(

@@ -1,5 +1,5 @@
 import React from "react";
-import  { Typography,Button,TextField,Checkbox } from '@mui/material';
+import  { Card,Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams } from "react-router-dom";
 import {getUpdateRoutine} from '../data-requests'
 import SingleRoutine from "./SingleRoutine";
@@ -33,28 +33,32 @@ const EditRoutine = (props) => {
       };
     return(
       <>
-         <form onSubmit={updateRoutine}>
-                <TextField id="filled-basic"  variant="standard"
+     
+         <form onSubmit={updateRoutine} >
+                <TextField style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '100px'}}id="filled-basic"  variant="standard"
                  type="text"
                  //placeholder='Routine Name'
                  placeholder="Name"
                  onChange={(ev)=>{setEditRoutineName(ev.target.value)}}
                  />
-                 <TextField id="filled-basi<>c"  variant="standard"
+                 <TextField style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '50px', margin: '8px'}}id="filled-basic"  variant="standard" 
                  type="text"
                  placeholder='Routine Goal'
                 
                  onChange={(ev)=>{setEditRoutineGoal(ev.target.value)}}
                  />
-                 <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
+                 <>
+                 </>
+              <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>   
              </form>
-             <h1>Edit Routine Render</h1>
-         <div id="routineCard">
-      <h1>{singleRoutine.name}</h1> 
-       <p>Goal: {singleRoutine.goal}</p>
-      <p>Creator: {singleRoutine.creatorName}</p>
-      <p>CreatorId: {singleRoutine.creatorId}</p>
-      </div>
+          <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px', height: '400px', margin: '8px'}}>
+      <Typography variant="h4" color='black'> Name: {singleRoutine.name}</Typography>
+            <Typography variant="h4" color='black'> Creator: {singleRoutine.creatorName}</Typography>
+            <Typography variant="h4" color='black'> Goal: {singleRoutine.goal}</Typography>
+            <Typography variant="h4" color='black'> CreatorId: {singleRoutine.creatorId}</Typography>
+     
+     
+      </Card>
       </>
     )
 };

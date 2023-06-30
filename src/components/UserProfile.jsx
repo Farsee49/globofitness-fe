@@ -8,9 +8,6 @@ const UserProfile = (props) => {
   console.log(id)
     const {
     user,
-    tempUser,
-    login,
-    token,
     navigate,
     isLoggedIn,
     editRoutine,
@@ -34,6 +31,10 @@ const UserProfile = (props) => {
       console.log(newRoutineName, newRoutineGoal);
       try {
         const result = await createRoutine(newRoutineName, newRoutineGoal);
+        setNewRoutineName('');
+        setNewRoutineGoal('')
+        navigate('/userprofile')
+        getRoutinesByUsername(user.username)
       } catch (err) {
         console.error("problem in the handlesubmit in creating a routine!", err);
       }
@@ -41,8 +42,8 @@ const UserProfile = (props) => {
     
     useEffect(()=>{
       getRoutines();
-      getRoutinesByUsername();
-     //navigate('/activities')
+      getRoutinesByUsername(user.username)
+      
   },[]);
 
     return(
@@ -58,6 +59,7 @@ const UserProfile = (props) => {
           value={newRoutineName}
           onChange={(ev) => {
             setNewRoutineName(ev.target.value);
+            "document.getElementById('myInput').value = ''"
           }}
         />
         <TextField
@@ -87,15 +89,19 @@ const UserProfile = (props) => {
             <Typography variant="h4" color='black'>Goal: {userRoutine.goal}</Typography>
             <Typography variant="h4" color='black'>Creator: {userRoutine.creatorName}</Typography>
             <Typography variant="h4" color='black'>CreatorId: {userRoutine.creatorId}</Typography>
+            <br></br>
             {userRoutine.activities.length > 0 ?( <Typography variant="h5" color='black'>Attached Activities:</Typography>):(null) }
-        <Fragment> {userRoutine.activities.map((activity) =>(
+        <br></br><Fragment> {userRoutine.activities.map((activity) =>(
           <Fragment key={activity.id}>{console.log(activity)}
             <Typography variant="h6" color='black'>Name: {activity.name}</Typography>
+           
             <Typography variant="h7" color='black'>Description: {activity.description}</Typography>
-                  <></>
+            <br></br>
             <Typography variant="h7" color='black'>Count: {activity.count}</Typography>
-            <Typography variant="h7" color='black'>ID: {activity.id}</Typography>
-            <Typography variant="h7" color='black'>DuraTION: {activity.routineActivityId}</Typography>
+            <br></br>
+            <Typography variant="h7" color='black'>Duration: {activity.duration}</Typography>
+            <br></br>
+            <Typography variant="h7" color='black'>ID: {activity.id}</Typography><br></br>
               <Button  type='submit' variant='contained'size='small'  onClick={() => {
                 setRoutineActivity(activity);
                 navigate(`/routine-activities/${activity.routineActivityId}`);
@@ -113,7 +119,7 @@ const UserProfile = (props) => {
                navigate(`/single-routine/${userRoutine.id}`);
               }}>
             
-                Edit A Routine
+                Edit Your GLOBO ROUTINE
               </Button>
           </Typography>))
         } </Fragment>

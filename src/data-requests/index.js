@@ -68,8 +68,9 @@ export const registerUser = async (user) => {
 
   export const routinesByUsername = async (username) => {
     const token = localStorage.getItem("token");
+    console.log(username)
     try {
-      const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
+      const response = await fetch(`${BASE_URL}/users/${console.log(username),username}/routines`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

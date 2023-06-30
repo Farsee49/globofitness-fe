@@ -66,8 +66,7 @@ const Activities = (props) => {
   return (
     <>
       {isLoggedIn?(<Fragment>
-      <h1>Activities Render</h1>
-      <h2>Create a new Activity</h2>
+      <Typography variant="h3" color='black'>Create a new GLOBO Activity</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           id="filled-basic"
@@ -95,7 +94,9 @@ const Activities = (props) => {
           SUBMIT
         </Button>
       </form></Fragment>):(null)}
-      <>
+      <><>
+      </>
+      <Typography variant="h3" color='black'> GLOBO ACTIVITIES</Typography>
         {activities.map((activity) => (
           <Fragment key={activity.id}>
           

@@ -4,6 +4,7 @@ import {
   fetchRoutines,
   createRoutine,
   getUpdateRoutine,
+  routinesByUsername
 } from "../data-requests";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const Routines = (props) => {
     user,
     token,
     newRoutineGoal,
+    getRoutinesByUsername,
     isLoggedIn,
     newRoutineName,
     setNewRoutineName,
@@ -28,7 +30,7 @@ const Routines = (props) => {
     setSingleRoutine,
   } = props;
 
-  console.log(user.id);
+  //console.log(user.username);
  console.log(isLoggedIn)
   const createNewRoutine = async (ev) => {
     ev.preventDefault();
@@ -43,11 +45,11 @@ const Routines = (props) => {
     useEffect(()=>{
       getRoutines();
   },[]);
-
+ 
   return (
     <>
     {isLoggedIn?(<Fragment>
-      <h1>Create Routines</h1>
+      <Typography variant="h3" color='black'>Create a new GLOBO ROUTINE</Typography>
       <form onSubmit={createNewRoutine}>
         <TextField
           id="filled-basic"
@@ -75,13 +77,16 @@ const Routines = (props) => {
       </form>
     </Fragment>):(null)}
 
-      <h2>Routines</h2>
+    <Typography variant="h3" color='black'>GLOBO ROUTINES</Typography>
       <ol>
-        {routines &&
+      <Card style={{backgroundColor: "purple", border: "5px solid black", width: '900px',overflow: 'auto', height: '700px', margin: '8px'}}>
+        { 
+        routines &&
           routines.map((routine) => (
+           
             <Fragment key={routine.id}>
               
-              <Card style={{backgroundColor: "purple", border: "5px solid black", width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
+              <Card style={{backgroundColor: "purple", border: "5px solid black", width: '700px',overflow: 'auto', height: '500px', margin: '8px'}}> 
             <Typography variant="h4" color='black' > Name:{ routine.name}</Typography>
             <Typography variant="h4" color='black'>CreatorId: {routine.creatorId}</Typography>
             <Typography variant="h4" color='black'>Goal: {routine.goal}</Typography>
@@ -101,10 +106,10 @@ const Routines = (props) => {
                  <Typography variant="h5" color='black'>ID: {activity.id}</Typography></Fragment>
                 ))}
                 </> 
-              </Card> 
+              </Card>
             </Fragment>
           ))}
-      </ol>
+     </Card>  </ol>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useEffect,Fragment} from "react";
-import  { Typography,Button,TextField,Checkbox } from '@mui/material';
+import  { Card,Typography,Button,TextField,Checkbox } from '@mui/material';
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { getActivityWithRoutines, getAddActivity } from "../data-requests";
 
@@ -60,14 +60,15 @@ const AddActivity = (props) => {
          <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
      </form>
       <Typography variant="h4" color='black'>Activities:</Typography>
-
+      <Card style={{backgroundColor: "purple", border: "5px solid black",
+      width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
             <Typography variant="h5" color='black'>{activities.map((activity) =>(
              <Fragment key={activity.id}> 
               <Typography variant="h5" color='black' > Name:{ activity.name}</Typography>
               <Typography variant="h6" color='black' > Description:  { activity.description}</Typography>
               <Typography variant="h6" color='black' > ID:  { activity.id}</Typography>
             </Fragment>
-            ))}</Typography>
+            ))}</Typography></Card>
         </>
     )
 };

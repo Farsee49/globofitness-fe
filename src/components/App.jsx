@@ -29,6 +29,7 @@ import {
 	 } from "../data-requests";
 
 
+
 const App = () => {
 	
 const [username, setUsername] = useState('');
@@ -90,8 +91,8 @@ const navigate = useNavigate();
   const getRoutinesByUsername = async (token) => {
     try {
       //console.log(user)
-      const username = user.username;
-      const result = await routinesByUsername(username);
+      // const username = user.username;
+      const result = await routinesByUsername(user.username);
       setUserRoutines(result);
       //console.log(result);
     } catch (err) {
@@ -135,9 +136,6 @@ const navigate = useNavigate();
       console.error("problem in Delete Routine in App!", err);
     }
   };
-
-  
-
 
 
 useEffect(()=>{
@@ -236,6 +234,7 @@ useEffect(()=>{
               setNewRoutineName={setNewRoutineName}
               singleRoutine={singleRoutine}
               setSingleRoutine={setSingleRoutine}
+              getRoutinesByUsername={getRoutinesByUsername}
               setRoutines={setRoutines}
               routines={routines}
               getRoutines={getRoutines}
@@ -251,6 +250,7 @@ useEffect(()=>{
           path="/routine-activities/:id"
           element={
             <RoutineActivities
+            navigate={navigate}
               routines={routines}
               activities={activities}
               isLoggedIn={isLoggedIn}
@@ -373,8 +373,10 @@ useEffect(()=>{
 
         <Route path = '/activity-routines/:id'
          element={<ActivtyWithRoutines 
+          fetchActivityWithRoutines={fetchActivityWithRoutines}
           activityRoutines={activityRoutines}
          />}/>
+
 
 
 			</Routes>

@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, {Fragment, useEffect} from "react";
 import { Typography, Button, TextField, Checkbox, Card } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { getUpdateActivity } from "../data-requests";
+import { getActivityWithRoutines, getUpdateActivity } from "../data-requests";
 
 const EditActivity = (props) => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const EditActivity = (props) => {
   } = props;
 
   console.log("editActivityName", editActivityName);
-  console.log(activityRoutines)
+ 
   
   const updateActivity = async (ev) => {
     ev.preventDefault();
@@ -31,14 +31,14 @@ const EditActivity = (props) => {
         editActivityDescription
       );
       console.log(result);
-      navigate('/userprofile')
+      navigate('/activities')
     } catch (err) {
       console.error("problem in updateActivity in EditActivity!", err);
     }
   };
 
   useEffect(()=>{
-	
+
     fetchActivityWithRoutines();
 },[]);
 
@@ -69,9 +69,14 @@ const EditActivity = (props) => {
         <Button type="submit" variant="contained" size="small">
           SUBMIT
         </Button>
-      </form>
-
-    </>
+      </form><Card style={{backgroundColor: "purple", border: "5px solid black",
+      width: '600px',overflow: 'auto', height: '400px', margin: '8px'}}>
+           <Typography  variant="h4" color='black' > Name: {editActivityName}</Typography>
+           <></>
+            <Typography variant="h4" color='black'>Description: {editActivityDescription}</Typography></Card>
+           
+</>
+    
   );
 };
 
